@@ -9,7 +9,7 @@ import argparse
 def main():
     parser = argparse.ArgumentParser(description='runs the SC regression trainings')
     parser.add_argument('--era',required=True,help='year to produce for, 2016, 2017, 2018 are the options')
-    parser.add_argument('--input_dir','-i',default='/mercury/data1/harper/EgRegsNtups',help='input directory with the ntuples')
+    parser.add_argument('--input_dir','-i',default='/home/hep/wrtabb/Egamma/input_trees/ThreshForECAL',help='input directory with the ntuples')
     parser.add_argument('--output_dir','-o',default="results",help='output dir')
     args = parser.parse_args()
 
@@ -18,41 +18,39 @@ def main():
     #step 3, retrain the resolution for the real IC on the corrected energy
     #step 4, run trk-calo regression using the real IC corrections as inputs 
 
-    #event split: ECAL Ideal IC train = eventnr%10=0
-    #             ECAL Real IC train = eventnr%10=1
-    #             ECAL ECAL-Trk IC train = eventnr%10=2
-    run_step1 = True
+    run_step1 = True 
     run_step2 = True
-    run_step3 = True
+    run_step3 = True 
     run_step4 = True
     run_step4_extra = False
     
     base_ele_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && ele.et>0 && {extra_cuts})"
 
-    if args.era=='2016':
-        era_name = "2016UL"
-        input_ideal_ic  = "{}/DoubleElectron_FlatPt-1To300_2016ConditionsFlatPU0to70ECALGT_105X_realistic_IdealEcalIC_v2-v2.root".format(args.input_dir)
-        input_real_ic = "{}/DoubleElectron_FlatPt-1To300_2016ConditionsFlatPU0to70RAW_105X_realistic_v2-v2.root".format(args.input_dir)
+    if args.era=='TL150':
+        era_name = "TL150"
+        input_ideal_ic  = "{}/TL150/DoubleElectron_FlatPt-1To100_ntuples_ECALFlatPU0to80RAWTL150_106X_mcRun3_TL150fb_realistic_v1_ext1-v1_EGRegNtups.root".format(args.input_dir)
+        input_real_ic  = "{}/TL150/DoubleElectron_FlatPt-1To100_ntuples_ECALFlatPU0to80RAWTL150_106X_mcRun3_TL150fb_realistic_v1_ext1-v1_EGRegNtups.root".format(args.input_dir)
+        ideal_eventnr_cut = "evt.eventnr%100==0"
+        real_eventnr_cut = "evt.eventnr%100==1"
+        ep_eventnr_cut = "evt.eventnr%100==2"
+
+    elif args.era=='TL180':
+        era_name = "TL180"
+        input_ideal_ic  = "{}/TL180/DoubleElectron_FlatPt-1To100_ntuples_ECALFlatPU0to80RAWTL150_106X_mcRun3_TL150fb_realistic_v1_ext1-v1_EGRegNtups.root".format(args.input_dir)
+        input_real_ic  = "{}/TL180/DoubleElectron_FlatPt-1To100_ntuples_ECALFlatPU0to80RAWTL150_106X_mcRun3_TL150fb_realistic_v1_ext1-v1_EGRegNtups.root".format(args.input_dir)
         ideal_eventnr_cut = "evt.eventnr%5==0"
-        real_eventnr_cut = "evt.eventnr%5==1"
+        real_eventnr_cut = "evt.eventnr%5==1" 
         ep_eventnr_cut = "evt.eventnr%5==2"
 
-    elif args.era=='2017':
-        era_name = "2017UL"
-        input_ideal_ic  = "{}/DoubleElectron_FlatPt-1To300_2017ConditionsFlatPU0to70ECALGT_105X_mc2017_realistic_IdealEcalIC_v5-v2_AODSIM_EgRegTreeV5Refined.root".format(args.input_dir)
-        input_real_ic = "{}/DoubleElectron_FlatPt-1To300_2017ConditionsFlatPU0to70_105X_mc2017_realistic_v5-v2_AODSIM_EgRegTreeV5Refined.root".format(args.input_dir)
-        ideal_eventnr_cut = "evt.eventnr%10==0"  #2million electrons
-        real_eventnr_cut = "evt.eventnr%10==1" #2million electron
-        ep_eventnr_cut = "evt.eventnr%10==2" #2million electrons
-    elif args.era=='2018':
-        era_name = "2018UL"
-        input_ideal_ic  = "{}/DoubleElectron_FlatPt-1To300_2018ConditionsFlatPU0to70ECALGT_105X_upgrade2018_realistic_IdealEcalIC_v4-v1_AODSIM_EgRegTreeV5Refined.root".format(args.input_dir)
-        input_real_ic = "{}/DoubleElectron_FlatPt-1To300_2018ConditionsFlatPU0to70RAW_105X_upgrade2018_realistic_v4-v1_AODSIM_EgRegTreeV5Refined.root".format(args.input_dir)    
-        ideal_eventnr_cut = "evt.eventnr%5==0"  #4million electrons (we determined 4 million was optimal but after the 2017 was done)
-        real_eventnr_cut = "evt.eventnr%5==1" #4million electrons (we determined 4 million was optimal but after the 2017 was done)
-        ep_eventnr_cut = "evt.eventnr%5==2" #4million electrons (we determined 4 million was optimal but after the 2017 was done)
+    elif args.era=='TL235':
+        era_name = "TL235"
+        input_ideal_ic  = "{}/TL235/DoubleElectron_FlatPt-1To100_ntuples_ECALFlatPU0to80RAWTL150_106X_mcRun3_TL150fb_realistic_v1_ext1-v1_EGRegNtups.root".format(args.input_dir)
+        input_real_ic  = "{}/TL235/DoubleElectron_FlatPt-1To100_ntuples_ECALFlatPU0to80RAWTL150_106X_mcRun3_TL150fb_realistic_v1_ext1-v1_EGRegNtups.root".format(args.input_dir)
+        ideal_eventnr_cut = "evt.eventnr%5==0"
+        real_eventnr_cut = "evt.eventnr%5==1"
+        ep_eventnr_cut = "evt.eventnr%5==2" 
     else:
-        raise ValueError("era {} is invalid, options are 2016/2017/2018".format(era))
+        raise ValueError("era {} is invalid, options are TL150, TL180, or TL235".format(era))
 
 
     
@@ -67,7 +65,7 @@ def main():
     regArgs.cuts_base = base_ele_cuts.format(extra_cuts = ideal_eventnr_cut)
     regArgs.cuts_name = "stdCuts"
     regArgs.cfg_dir = "configs"
-    regArgs.out_dir = "resultsEleV5" 
+    regArgs.out_dir = "resultsEleRun3" 
     regArgs.ntrees = 1500  
     regArgs.base_name = "regEleEcal{era_name}_IdealIC_IdealTraining".format(era_name=era_name)
     if run_step1: regArgs.run_eb_and_ee()
