@@ -32,7 +32,7 @@ void ResPlotter::Config::setDefaults()
 
   std::vector<std::pair<std::string,std::string> > varsTree1 = {
     {"mc.energy/(sc.rawEnergy+sc.rawESEnergy)","raw energy"},
-    {"1.0/(mean*invTar)","Run3 test correction"},
+    {"1.0/(mean*invTar)","Run3 photon correction"},
     {"1.0/(mean*invTar)","2016UL correction"},
     {"sc.corrEnergy/mc.energy","2016UL correction"}
   };

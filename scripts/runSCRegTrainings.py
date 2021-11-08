@@ -12,7 +12,7 @@ def main():
 
     parser = argparse.ArgumentParser(description='runs the SC regression trainings')
     parser.add_argument('--era',required=True,help='year to produce for, 2016, 2017, 2018 are the options')
-    parser.add_argument('--input_dir','-i',default='/mercury/data1/harper/EgRegsNtups',help='input directory with the ntuples')
+    parser.add_argument('--input_dir','-i',default='/home/hep/wrtabb/Egamma/input_trees/ThreshForECAL',help='input directory with the ntuples')
     parser.add_argument('--output_dir','-o',default="results",help='output dir')
     args = parser.parse_args()
 
@@ -25,31 +25,18 @@ def main():
 
     #setup the selection (event number cuts come later)
     cuts_name = "stdCuts" 
-    base_ele_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && {extra_cuts})"
+    base_ele_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && sc.nrSatCrys==0 && {extra_cuts})"
     
     #prefixes all the regressions produced
-    if args.era=='2016':
-        base_reg_name = "scReg2016UL"
-        input_ideal_ic  = "{}/DoubleElectron_FlatPt-1To300_2016ConditionsFlatPU0to70ECALGT_105X_mcRun2_asymptotic_IdealEcalIC_newSR_v2-v2_AODSIM_EgRegTreeV5.root".format(args.input_dir)
-        input_real_ic = "{}/DoubleElectron_FlatPt-1To300_2016ConditionsFlatPU0to70RAW_105X_mcRun2_asymptotic_newECALSR_v2-v2_AODSIM_EgRegTreeV5.root".format(args.input_dir)
-        ideal_eventnr_cut = "evt.eventnr%5==0"  #4million electrons
-        real_eventnr_cut = "evt.eventnr%5==1" #4million electrons
+    if args.era=='2021Run3':
+        base_reg_name = "2021Run3"
+	input_ideal_ic  = "{}/DoubleElectron_FlatPt-1To500_FlatPU0to70_120X_mcRun3_2021_realistic_v6-v1_AODSIM.root".format(args.input_dir)
+        input_real_ic  = "{}/DoubleElectron_FlatPt-1To500_FlatPU0to70_120X_mcRun3_2021_realistic_v6-v1_AODSIM.root".format(args.input_dir)
+        ideal_eventnr_cut = "evt.eventnr%5==0"
+        real_eventnr_cut = "evt.eventnr%5==1"
 
-    elif args.era=='2017':
-        base_reg_name = "scReg2017UL"    
-        input_ideal_ic  = "{}/DoubleElectron_FlatPt-1To300_2017ConditionsFlatPU0to70ECALGT_105X_mc2017_realistic_IdealEcalIC_v5-v2_AODSIM_EgRegTreeV1_extraVars.root".format(args.input_dir)
-        input_real_ic = "{}/DoubleElectron_FlatPt-1To300_2017ConditionsFlatPU0to70_105X_mc2017_realistic_v5-v2_AODSIM_EgRegTreeV1_4.root".format(args.input_dir)   
-        ideal_eventnr_cut = "evt.eventnr%2==0"
-        real_eventnr_cut = "evt.eventnr%2==0" #events in the ntuple are different so can get away with this
-
-    elif args.era=='2018':
-        base_reg_name = "scReg2018UL"    
-        input_ideal_ic  = "{}/DoubleElectron_FlatPt-1To300_2018ConditionsFlatPU0to70ECALGT_105X_upgrade2018_realistic_IdealEcalIC_v4-v1_AODSIM_EgRegTreeV5_partStatsV2.root".format(args.input_dir)
-        input_real_ic = "{}/DoubleElectron_FlatPt-1To300_2018ConditionsFlatPU0to70RAW_105X_upgrade2018_realistic_v4-v1_AODSIM_EgRegTreeV5_partStatsV2.root".format(args.input_dir)    
-        ideal_eventnr_cut = "evt.eventnr%5==0"  #4million electrons
-        real_eventnr_cut = "evt.eventnr%5==1" #4million electrons
     else:
-        raise ValueError("era {} is invalid, options are 2016/2017/2018".format(era))
+        raise ValueError("era {} is invalid, the only available option is 2021Run3".format(era))
 
     
     regArgs = RegArgs()
@@ -57,7 +44,7 @@ def main():
     regArgs.input_testing = str(input_ideal_ic)
     regArgs.set_sc_default()
     regArgs.cfg_dir = "configs"
-    regArgs.out_dir = args.output_dir
+    regArgs.out_dir = "results/resultsSC" 
     regArgs.cuts_name = cuts_name
     regArgs.base_name = "{}_IdealIC_IdealTraining".format(base_reg_name)
     regArgs.cuts_base = base_ele_cuts.format(extra_cuts = ideal_eventnr_cut)

@@ -1,18 +1,18 @@
  {
    //binning
-   std::vector<double> puBins = {0,5,10,15,20,25,30,35,40,45,50,55,60,65,70};
+   std::vector<double> puBins = {0,10,20,30,40,50,60,70,80};
    std::vector<double> resBins = {0.005, 0.0075, 0.01, 0.0125, 0.015, 0.0175, 0.02, 0.0225, 0.025, 0.0275, 0.03, 0.0325, 0.035, 0.0375, 0.04, 0.0425, 0.045, 0.0475, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.09, 0.1,0.12,0.2,0.4,0.5};
    std::vector<double> etaBins = {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.4442,1.566,1.7,1.8,1.9,2.,2.25,2.5};//,2.75,3.0}
-   std::vector<double> etaBins2p5 = {0.0,0.5,1.0,1.4442,1.566,2.0,2.5};//,2.75,3.0}
+   std::vector<double> etaBins2p5 = {-2.5,-2.0,-1.5666,-1.4442,-1.0,-0.5,0.0,0.5,1.0,1.4442,1.566,2.0,2.5};//,2.75,3.0}
    std::vector<double> etaBinsPho = {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.4442,1.566,1.7,1.8,1.9,2.,2.25,2.5,2.75,3.0};
    std::vector<double> etBins = {5,15,30,50,100,150,300};
    std::vector<double> etBins100 = {5,15,30,50,100};
    std::vector<double> etBinsPho = {10,20,30,50,100,150,300};
    std::vector<double> etBinsSC = {25,40,50,60};
-   std::vector<double> ptOneBin = {1,300}; 
+   std::vector<double> ptOneBin = {5,500}; 
    //std::vector<double> etBins = {10,20,30,50,75,100,125,150,200,250,300};
    std::vector<double> etBinsVs = {5,10,15,20,25,30,35,40,45,50,60,65,70,75,80,85,90,95,100,120,140,160,180,200,220,240,260,280,300};
-   std::vector<double> etBinsVsPho = {20,25,30,35,40,45,50,60,65,70,75,80,85,90,95,100,120,140,160,180,200,220,240,260,280,300};
+   std::vector<double> etBinsVsPho = {5,50,100,150,200,250,300,350,400,450,500};
    
    std::vector<double> etBinsMedium = {300,400,500,600,700,800,900,1000};
    std::vector<double> etBinsEleHigh = {1000,1100,1200,1300,1400,1500};
@@ -24,24 +24,18 @@
    RooMsgService::instance().setSilentMode(true);
    gErrorIgnoreLevel = kError;
   
-   //trees
+   //-----trees-----//
  
    //Directories for making trees
-   std::string resultsDirectory = "/home/hep/wrtabb/Egamma/results/";
-   std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/2016UL/";
+   std::string resultsDirectory = "/home/hep/wrtabb/Egamma/EgRegresTrainerLegacy/results/";
+   std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/Run3_2021/";
 
-   //2016UL Electrons  
-   std::string resultsEle = resultsDirectory + "2016UL/";
-   std::string step1InputName = "DoubleElectron_FlatPt-1To300_2016ConditionsFlatPU0to70ECALGT_105X_realistic_IdealEcalIC_v2-v2.root";
-   std::string step1Name = "regEleEcal2016UL_IdealIC_IdealTraining_stdVar_stdCuts_ntrees1500_applied.root";
-   std::string step2Name = "regEleEcal2016UL_RealIC_IdealTraining_stdVar_stdCuts_ntrees1500_applied.root";
-   std::string step3Name = "regEleEcalTL150_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
-   std::string step4Name = "regEleEcalTrkTL150_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-
-   std::string resultsRun3 = "resultsEleRun3/";
-   TTree*treeEleRun3Step4 = HistFuncs::makeChain("egRegTreeRef",resultsRun3+step3Name,1,1,1);
-   TTree*treeEleRun3Step4Friend = HistFuncs::makeChain("egRegTreeRefFriend",resultsRun3+step4Name,1,1,1);
-   treeEleRun3Step4->AddFriend(treeEleRun3Step4Friend);
+   // Run3_2021 Photons
+   std::string resultsPho = resultsDirectory + "resultsPho/";
+   std::string step3Name  = "regPhoEcal2021Run3_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
+   TTree*treePhoStep3 = HistFuncs::makeChain("egRegTree",resultsPho+step3Name,1,1,1);
+   TTree*treePhoStep3Friend = HistFuncs::makeChain("egRegTreeFriend",resultsPho+step3Name,1,1,1);
+   treePhoStep3->AddFriend(treePhoStep3Friend);
 
    /*************************************
    #now as an example do the following, 
