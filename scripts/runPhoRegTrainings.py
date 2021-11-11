@@ -27,10 +27,9 @@ def main():
     base_pho_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && pho.et>0 && pho.nrSatCrys==0 && {extra_cuts})"
 
 
-    # Temporarily, for testing purposes, this is being run without an ideal IC sample
     if args.era=='2021Run3':
         era_name = "2021Run3"
-        input_ideal_ic  = "{}/DoublePhoton_FlatPt-5To500_FlatPU0to70_120X_mcRun3_2021_realistic_v6-v1_AODSIM.root".format(args.input_dir)
+        input_ideal_ic  = "{}/DoublePhoton_FlatPt-5To500_FlatPU0to70IDEALGT_120X_mcRun3_2021_realistic_v6_ECALIdealIC-v2_AODSIM.root".format(args.input_dir)
         input_real_ic = "{}/DoublePhoton_FlatPt-5To500_FlatPU0to70_120X_mcRun3_2021_realistic_v6-v1_AODSIM.root".format(args.input_dir)
         ideal_eventnr_cut = "evt.eventnr%5==0"
         real_eventnr_cut = "evt.eventnr%5==1"
