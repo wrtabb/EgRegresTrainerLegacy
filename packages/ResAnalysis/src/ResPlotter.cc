@@ -31,10 +31,10 @@ void ResPlotter::Config::setDefaults()
   divideMeanBySigma = true;
 
   std::vector<std::pair<std::string,std::string> > varsTree1 = {
-    {"mc.energy/(sc.rawEnergy+sc.rawESEnergy)","raw energy"},
-    {"1.0/(mean*invTar)","Run3 electron correction"},
-    {"1.0/(mean*invTar)","Run3 photon correction"},
-    {"1.0/(mean*invTar)","Run3 supercluster correction"}
+    {"(sc.rawEnergy+sc.rawESEnergy)/mc.energy","raw energy"},
+    {"(mean*invTar)","Run3 electron correction"},
+    {"(mean*invTar)","Run3 photon correction"},
+    {"(mean*invTar)","Run3 supercluster correction"}
   };
 
   std::vector<std::pair<std::string,std::string> > varsTree2 = {

@@ -4,14 +4,17 @@
    std::vector<double> resBins = {0.005, 0.0075, 0.01, 0.0125, 0.015, 0.0175, 0.02, 0.0225, 0.025, 0.0275, 0.03, 0.0325, 0.035, 0.0375, 0.04, 0.0425, 0.045, 0.0475, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.09, 0.1,0.12,0.2,0.4,0.5};
    std::vector<double> etaBins2p5 = {-2.5,-2.0,-1.5666,-1.4442,-1.0,-0.5,0.0,0.5,1.0,1.4442,1.566,2.0,2.5};//,2.75,3.0}
    std::vector<double> etaBins3 = {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.4442,1.566,1.7,1.8,1.9,2.,2.25,2.5,2.75,3.0};
-   std::vector<double> etaBins = {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.4442,1.566,1.7,1.8,1.9,2.,2.25,2.5};
-   std::vector<double> etBins300 = {5,15,30,50,100,150,300};
-   std::vector<double> etBins100 = {5,15,30,50,100};
-   std::vector<double> ptOneBin = {1,500}; 
-   std::vector<double> etBins = {5,50,100,150,200,250,300,350,400,450,500};
-   
-   std::vector<double> etBinsMedium = {300,400,500,600,700,800,900,1000};
-   std::vector<double> etBinsEleHigh = {1000,1100,1200,1300,1400,1500};
+   std::vector<double> etaBins = {0,0.5,1.0,1.4442,1.566,2.0,2.5};
+   std::vector<double> ptOneBinLow = {1,500}; 
+   std::vector<double> ptOneBinMedium = {500,1000}; 
+   std::vector<double> ptOneBinHigh = {1000,1500}; 
+   std::vector<double> ptOneBinUltra = {1500,3000}; 
+
+   std::vector<double> etBinsLow    = {1,100,200,300,400,500};
+   std::vector<double> etBinsMedium = {500,600,700,800,900,1000};
+   std::vector<double> etBinsHigh   = {1000,1100,1200,1300,1400,1500};
+   std::vector<double> etBinsUltra  = {1500,1750,2000,2250,2500,2750,3000};
+
    std::vector<double> etBinsPhoHigh = {1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000};
    std::vector<double> etaBinsSimple = {0.,0.7,1.1,1.4442,1.566,2.,2.25,2.5};
    
@@ -48,6 +51,25 @@
    TTree*treeEleStep4 = HistFuncs::makeChain("egRegTree",resultsEle+step3NameEle,1,1,1);
    TTree*treeEleStep4Friend = HistFuncs::makeChain("egRegTreeFriend",resultsEle+step4NameEle,1,1,1);
    treeEleStep4->AddFriend(treeEleStep4Friend);
+
+   // Run3_2021 High energy electrons
+   std::string results500To1000Ele = resultsDirectory + "resultsPt500To1000Ele/";
+   std::string outputName500To1000Ele  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
+   TTree*tree500To1000Ele = HistFuncs::makeChain("egRegTree",results500To1000Ele+outputName500To1000Ele,1,1,1);
+   TTree*tree500To1000EleFriend = HistFuncs::makeChain("egRegTreeFriend",results500To1000Ele+outputName500To1000Ele,1,1,1);
+   tree500To1000Ele->AddFriend(tree500To1000EleFriend);
+
+   std::string results1000To1500Ele = resultsDirectory + "resultsPt1000To1500Ele/";
+   std::string outputName1000To1500Ele  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
+   TTree*tree1000To1500Ele = HistFuncs::makeChain("egRegTree",results1000To1500Ele+outputName1000To1500Ele,1,1,1);
+   TTree*tree1000To1500EleFriend = HistFuncs::makeChain("egRegTreeFriend",results1000To1500Ele+outputName1000To1500Ele,1,1,1);
+   tree1000To1500Ele->AddFriend(tree1000To1500EleFriend);
+
+   std::string results1500To3000Ele = resultsDirectory + "resultsPt1500To3000Ele/";
+   std::string outputName1500To3000Ele  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
+   TTree*tree1500To3000Ele = HistFuncs::makeChain("egRegTree",results1500To3000Ele+outputName1500To3000Ele,1,1,1);
+   TTree*tree1500To3000EleFriend = HistFuncs::makeChain("egRegTreeFriend",results1500To3000Ele+outputName1500To3000Ele,1,1,1);
+   tree1500To3000Ele->AddFriend(tree1500To3000EleFriend);
 
    /*************************************
    #now as an example do the following, 
