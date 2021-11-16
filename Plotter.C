@@ -17,15 +17,6 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj);
 
 void Plotter()
 {
-	//-----parameters-----//
-	//Which plots to plot
-	bool etaPlot = true;
-	bool puPlot  = true;
-	bool ePlot   = true;
-
-	//Double crystal ball fit option (default is Cruijff)
-	bool dcbFit = true;
-
 	gSystem->Exec("gmake RegressionTrainerExe -j 8");
 	gSystem->Exec("gmake RegressionApplierExe -j 8");
 
@@ -65,12 +56,16 @@ void Plotter()
 void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 {
 	TString var1,var2,binning1,binning2,saveTag;
+	TString fitType;
 
-	TString fitType = "CRUIJF";
 	if(dcbFit){ 
 		gROOT->ProcessLine("res.setFitType(ResFitter::FitType::DCB)");
 		fitType = "DCB";
 	}
+	else{
+		gROOT->ProcessLine("res.setFitType(ResFitter::FitType::CRUIJFF)");
+		fitType = "CRUIJF";
+	} 
 
 	TString baseCuts = "mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0";
 	TString treeName1;
@@ -81,7 +76,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		baseCuts += " && ele.et>0";	
 		etBinning = "etBinsLow";
 		oneBinRange = "ptOneBinLow";
-		saveLoc = "/Electrons";
+		saveLoc = "/Electrons/";
 		fitsArg = "0,1";
 	}
 	else if(plotObj == PHO){
@@ -89,7 +84,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		baseCuts += " && pho.et>0";	
 		etBinning = "etBinsLow";
 		oneBinRange = "ptOneBinLow";
-		saveLoc = "/Photons";
+		saveLoc = "/Photons/";
 		fitsArg = "0,2";
 	}
 	else if(plotObj == SC){
@@ -97,12 +92,12 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		baseCuts += " && sc.et>0";	
 		etBinning = "etBinsLow";
 		oneBinRange = "ptOneBinLow";
-		saveLoc = "/Superclusters";
+		saveLoc = "/Superclusters/";
 		fitsArg = "0,3";
 	}
 	else if(plotObj == ELE_500To1000){
 		treeName1 = "tree500To1000Ele";
-		baseCuts += " && ele.et>0";	
+		baseCuts += " && ele.et>0 && ele.nrSatCrys==0";	
 		etBinning = "etBinsMedium";
 		oneBinRange = "ptOneBinMedium";
 		saveLoc = "/Electrons_HighEnergy/Pt500to1000";
@@ -110,7 +105,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	}
 	else if(plotObj == ELE_1000To1500){
 		treeName1 = "tree1000To1500Ele";
-		baseCuts += " && ele.et>0";	
+		baseCuts += " && ele.et>0 && ele.nrSatCrys==0";	
 		etBinning = "etBinsHigh";
 		oneBinRange = "ptOneBinHigh";
 		saveLoc = "/Electrons_HighEnergy/Pt1000to1500";
@@ -118,7 +113,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	}
 	else if(plotObj == ELE_1500To3000){
 		treeName1 = "tree1500To3000Ele";
-		baseCuts += " && ele.et>0";	
+		baseCuts += " && ele.et>0 && ele.nrSatCrys==0";	
 		etBinning = "etBinsUltra";
 		oneBinRange = "ptOneBinUltra";
 		saveLoc = "/Electrons_HighEnergy/Pt1500to3000";
