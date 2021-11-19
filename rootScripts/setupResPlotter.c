@@ -9,11 +9,31 @@
    std::vector<double> ptOneBinMedium = {500,1000}; 
    std::vector<double> ptOneBinHigh = {1000,1500}; 
    std::vector<double> ptOneBinUltra = {1500,3000}; 
+   std::vector<double> ptOneBinSuper = {3000,4000};
 
+   std::vector<double> etaBinsFine = {0,0.2,0.4,0.6,0.8,1.0,1.2,1.4442,1.566,1.8,2.0,2.2,2.4,2.6};
+   // binning for different energy ranges
    std::vector<double> etBinsLow    = {1,100,200,300,400,500};
    std::vector<double> etBinsMedium = {500,600,700,800,900,1000};
    std::vector<double> etBinsHigh   = {1000,1100,1200,1300,1400,1500};
    std::vector<double> etBinsUltra  = {1500,1750,2000,2250,2500,2750,3000};
+   std::vector<double> etBinsSuper  = {3000,3200,3400,3800,4000};
+   std::vector<double> etBinsAll    = {1,100,200,300,400,500,600,700,800,900,1000,1100,1200,
+				       1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,
+				       2300,2400,2500,2600,2700,2800,2900,3000};
+   std::vector<double> etBinsAllPho = {5,100,200,300,400,500,1000,1100,1200,
+				       1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,
+				       2300,2400,2500,2600,2700,2800,2900,3000,3100,3200,
+				       3300,3400,3500,3600,3700,3800,3900,4000};
+
+   // binning for QCD samples
+   std::vector<double> ptOneBinQCDLow  = {0,80}; 
+   std::vector<double> ptOneBinQCDHigh = {0,1000}; 
+   std::vector<double> etBinsQCDLow    = {0,20,40,80};
+   std::vector<double> etBinsQCDHigh   = {0,200,400,600,1000};
+   std::vector<double> etaBinsEBEE     = {0,1.4442,1.566,2.5};
+   std::vector<double> puBinsQCD       = {0,30,60,90};
+
 
    std::vector<double> etBinsPhoHigh = {1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000};
    std::vector<double> etaBinsSimple = {0.,0.7,1.1,1.4442,1.566,2.,2.25,2.5};
@@ -70,6 +90,51 @@
    TTree*tree1500To3000Ele = HistFuncs::makeChain("egRegTree",results1500To3000Ele+outputName1500To3000Ele,1,1,1);
    TTree*tree1500To3000EleFriend = HistFuncs::makeChain("egRegTreeFriend",results1500To3000Ele+outputName1500To3000Ele,1,1,1);
    tree1500To3000Ele->AddFriend(tree1500To3000EleFriend);
+
+   // Run3_2021 QCD Samples
+   std::string resultsQCD30To50 = resultsDirectory + "resultsQCD/";
+   std::string outputNameQCD30To50  = "regQCD30to50EcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
+   TTree*treeQCD30To50 = HistFuncs::makeChain("egRegTree",resultsQCD30To50+outputNameQCD30To50,1,1,1);
+   TTree*treeQCD30To50Friend = HistFuncs::makeChain("egRegTreeFriend",resultsQCD30To50+outputNameQCD30To50,1,1,1);
+   treeQCD30To50->AddFriend(treeQCD30To50Friend);
+
+   std::string resultsQCD300ToInf = resultsDirectory + "resultsQCD/";
+   std::string outputNameQCD300ToInf  = "regQCD300toInfEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
+   TTree*treeQCD300ToInf = HistFuncs::makeChain("egRegTree",resultsQCD300ToInf+outputNameQCD300ToInf,1,1,1);
+   TTree*treeQCD300ToInfFriend = HistFuncs::makeChain("egRegTreeFriend",resultsQCD300ToInf+outputNameQCD300ToInf,1,1,1);
+   treeQCD300ToInf->AddFriend(treeQCD300ToInfFriend);
+
+   std::string resultsAllEle = resultsDirectory + "resultsAllEnergiesEle/";
+   std::string outputNameAllEle  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_results.root";
+   TTree*treeAllEle = HistFuncs::makeChain("egRegTree",resultsAllEle+outputNameAllEle,1,1,1);
+   TTree*treeAllEleFriend = HistFuncs::makeChain("egRegTreeFriend",resultsAllEle+outputNameAllEle,1,1,1);
+   treeAllEle->AddFriend(treeAllEleFriend);
+
+   // Run3_2021 High energy photons 
+   std::string results1000To1500Pho = resultsDirectory + "resultsPt1000To1500Pho/";
+   // root file misnamed, but leavin this for now
+   std::string outputName1000To1500Pho  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_results.root";
+   TTree*tree1000To1500Pho = HistFuncs::makeChain("egRegTree",results1000To1500Pho+outputName1000To1500Pho,1,1,1);
+   TTree*tree1000To1500PhoFriend = HistFuncs::makeChain("egRegTreeFriend",results1000To1500Pho+outputName1000To1500Pho,1,1,1);
+   tree1000To1500Pho->AddFriend(tree1000To1500PhoFriend);
+
+   std::string results1500To3000Pho = resultsDirectory + "resultsPt1500To3000Pho/";
+   std::string outputName1500To3000Pho  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_results.root";
+   TTree*tree1500To3000Pho = HistFuncs::makeChain("egRegTree",results1500To3000Pho+outputName1500To3000Pho,1,1,1);
+   TTree*tree1500To3000PhoFriend = HistFuncs::makeChain("egRegTreeFriend",results1500To3000Pho+outputName1500To3000Pho,1,1,1);
+   tree1500To3000Pho->AddFriend(tree1500To3000PhoFriend);
+
+   std::string results3000To4000Pho = resultsDirectory + "resultsPt3000To4000Pho/";
+   std::string outputName3000To4000Pho  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_results.root";
+   TTree*tree3000To4000Pho = HistFuncs::makeChain("egRegTree",results3000To4000Pho+outputName3000To4000Pho,1,1,1);
+   TTree*tree3000To4000PhoFriend = HistFuncs::makeChain("egRegTreeFriend",results3000To4000Pho+outputName3000To4000Pho,1,1,1);
+   tree3000To4000Pho->AddFriend(tree3000To4000PhoFriend);
+
+   std::string resultsAllPho = resultsDirectory + "resultsAllEnergiesPho/";
+   std::string outputNameAllPho  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_results.root";
+   TTree*treeAllPho = HistFuncs::makeChain("egRegTree",resultsAllPho+outputNameAllPho,1,1,1);
+   TTree*treeAllPhoFriend = HistFuncs::makeChain("egRegTreeFriend",resultsAllPho+outputNameAllPho,1,1,1);
+   treeAllPho->AddFriend(treeAllPhoFriend);
 
    /*************************************
    #now as an example do the following, 
