@@ -45,8 +45,8 @@ void Plotter()
 //		PHO_3000To4000,
 //		QCD_30To50,
 //		QCD_300ToInf,
-//		ELE_ALL_ENERGY,
-		PHO_ALL_ENERGY
+		ELE_ALL_ENERGY,
+//		PHO_ALL_ENERGY
 	};
 	int nObjects = plotObj.size();
 
@@ -169,12 +169,6 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		etaBinning = "etaBins";
 		puBinning = "puBins";
 	}
-	else if(plotObj == ELE_ALL_ENERGY){
-		treeName1 = "treeAllEle";
-		baseCuts += " && ele.et>0 && ele.nrSatCrys==0";	
-		saveLoc = "/Electrons_AllEnergy/NoSatCrys_Electrons";
-		fitsArg = "0,1";
-	}
 	else if(plotObj == PHO_1000To1500){
 		treeName1 = "tree1000To1500Pho";
 		baseCuts += " && pho.et>0";	
@@ -205,10 +199,16 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		etaBinning = "etaBins";
 		puBinning = "puBins";
 	}
+	else if(plotObj == ELE_ALL_ENERGY){
+		treeName1 = "treeAllEle";
+		baseCuts += " && ele.et>0";	
+		saveLoc = "/Electrons_HighEnergy_NoECALTrk/Electrons_";
+		fitsArg = "0,1";
+	}
 	else if(plotObj == PHO_ALL_ENERGY){
 		treeName1 = "treeAllPho";
-		baseCuts += " && ele.et>0 && ele.nrSatCrys==0";	
-		saveLoc = "/Photons_AllEnergy/NoSatCrys_Photons";
+		baseCuts += " && ele.et>0";	
+		saveLoc = "/Photons_AllEnergy/Photons";
 		fitsArg = "0,2";
 	}
         
@@ -256,7 +256,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		var1 	 = "sc.seedEta";
 		binning1 = "etaBins";
 		var2 	 = "mc.pt";
-		binning2 = "etBinsAllPho";
+		binning2 = "etBinsHEEle";
 		saveTag  = "EtEta";
 	}
 	else{

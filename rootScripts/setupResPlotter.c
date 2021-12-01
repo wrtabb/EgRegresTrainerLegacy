@@ -18,7 +18,10 @@
    std::vector<double> etBinsHigh   = {1000,1100,1200,1300,1400,1500};
    std::vector<double> etBinsUltra  = {1500,1750,2000,2250,2500,2750,3000};
    std::vector<double> etBinsSuper  = {3000,3200,3400,3800,4000};
-   std::vector<double> etBinsAll    = {1,100,200,300,400,500,600,700,800,900,1000,1100,1200,
+   std::vector<double> etBinsAllEle = {1,100,200,300,400,500,600,700,800,900,1000,1100,1200,
+				       1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,
+				       2300,2400,2500,2600,2700,2800,2900,3000};
+   std::vector<double> etBinsHEEle  = {500,600,700,800,900,1000,1100,1200,
 				       1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,
 				       2300,2400,2500,2600,2700,2800,2900,3000};
    std::vector<double> etBinsAllPho = {5,100,200,300,400,500,1000,1100,1200,
@@ -105,7 +108,7 @@
    treeQCD300ToInf->AddFriend(treeQCD300ToInfFriend);
 
    std::string resultsAllEle = resultsDirectory + "resultsAllEnergiesEle/";
-   std::string outputNameAllEle  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_results.root";
+   std::string outputNameAllEle  = "regEleEcal2021Run3_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_results.root";
    TTree*treeAllEle = HistFuncs::makeChain("egRegTree",resultsAllEle+outputNameAllEle,1,1,1);
    TTree*treeAllEleFriend = HistFuncs::makeChain("egRegTreeFriend",resultsAllEle+outputNameAllEle,1,1,1);
    treeAllEle->AddFriend(treeAllEleFriend);
