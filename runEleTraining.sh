@@ -5,4 +5,4 @@ export PYTHON27PATH=$PYTHON27PATH:python
 export PYTHONPATH=$PYTHONPATH:python
 export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PWD/include
 
-python scripts/runEleRegTrainings.py --era 2021Run3 
+python scripts/runEleRegTrainings.py --era HighEnergy 

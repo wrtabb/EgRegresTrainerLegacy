@@ -19,7 +19,10 @@ enum PlotObject{
 	QCD_30To50,
 	QCD_300ToInf,
 	ELE_ALL_ENERGY,
-	PHO_ALL_ENERGY
+	PHO_ALL_ENERGY,
+	ELE_HIGH_ENERGY,
+	ELE_HIGH_ENERGY_SATCRYS,
+	PHO_HIGH_ENERGY
 };
 void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj);
 
@@ -45,7 +48,9 @@ void Plotter()
 //		PHO_3000To4000,
 //		QCD_30To50,
 //		QCD_300ToInf,
-		ELE_ALL_ENERGY,
+//		ELE_ALL_ENERGY,
+//		ELE_HIGH_ENERGY,
+		ELE_HIGH_ENERGY_SATCRYS,
 //		PHO_ALL_ENERGY
 	};
 	int nObjects = plotObj.size();
@@ -210,6 +215,20 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		baseCuts += " && ele.et>0";	
 		saveLoc = "/Photons_AllEnergy/Photons";
 		fitsArg = "0,2";
+	}
+	else if(plotObj == ELE_HIGH_ENERGY){
+		treeName1 = "tree500To3000Ele";
+		treeName2 = "tree500To3000EleEP";
+		baseCuts += " && ele.et>0";	
+		saveLoc = "/Electrons_HighEnergy_Comparison/Electrons_";
+		fitsArg = "4,5";
+	}
+	else if(plotObj == ELE_HIGH_ENERGY_SATCRYS){
+		treeName1 = "tree500To3000Ele";
+		treeName2 = "treeHighEleSatCrys";
+		baseCuts += " && ele.et>0 && ele.nrSatCrys>0 && evt.eventnr%3>1";	
+		saveLoc = "/Electrons_HighEnergy_ComparisonSatCrys/Electrons_";
+		fitsArg = "4,5";
 	}
         
 	// Variable settings
