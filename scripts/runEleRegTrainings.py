@@ -37,14 +37,6 @@ def main():
         real_eventnr_cut = "evt.eventnr%5==1"	# ~4 million electrons
         ep_eventnr_cut = "evt.eventnr%5==2"	# ~4 million electrons
 
-    elif args.tag=='HighEnergy':
-        tag_name = "2021Run3_HighEnergy"
-        input_ideal_ic  = "{}/DoubleElectron_FlatPt-1To500_FlatPU0to70IDEALGT_120X_mcRun3_2021_realistic_v6_ECALIdealIC-v2_AODSIM.root".format(args.input_dir)
-        input_real_ic  = "{}/DoubleElectron_FlatPt-1To500_FlatPU0to70_120X_mcRun3_2021_realistic_v6-v1_AODSIM.root".format(args.input_dir)
-        ideal_eventnr_cut = "evt.eventnr%5==0"	# ~1.8 million electrons
-        real_eventnr_cut = "evt.eventnr%5==1"	# ~1.8 million electrons
-        ep_eventnr_cut = "evt.eventnr%5==2"	# ~1.8 million electrons
-
     else:
         raise ValueError("tag {} is invalid, the only available option is 2021Run3".format(tag))
 
