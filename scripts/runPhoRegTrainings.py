@@ -24,7 +24,7 @@ def main():
     run_step2 = True
     run_step3 = True
     
-    base_pho_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && pho.et>0 && {extra_cuts})"
+    base_pho_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && pho.et>0 && pho.nrSatCrys>0 && {extra_cuts})"
 
 
     if args.era=='2021Run3':

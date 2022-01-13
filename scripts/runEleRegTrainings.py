@@ -22,7 +22,7 @@ def main():
     run_step2 = True
     run_step3 = True 
     
-    base_ele_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && ele.et>0 && {extra_cuts})"
+    base_ele_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && ele.et>0 && ele.nrSatCrys>0 && {extra_cuts})"
 
     # Regression on saturated electrons
     if args.era=='HighEnergy':
