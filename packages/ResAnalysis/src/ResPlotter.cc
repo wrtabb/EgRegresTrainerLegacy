@@ -35,11 +35,11 @@ void ResPlotter::Config::setDefaults()
     {"(mean*invTar)","Run3 electron correction"},
     {"(mean*invTar)","Run3 photon correction"},
     {"(mean*invTar)","Run3 supercluster correction"},
-    {"(mean*invTar)","ECAL only correction"},
+    {"(mean*invTar)","trained on all crystals"},
   };
 
   std::vector<std::pair<std::string,std::string> > varsTree2 = {
-    {"(mean*invTar)","Saturated correction"}
+    {"(mean*invTar)","trained on SatCrys"}
   };
   vars.clear();
   vars.push_back(varsTree1);

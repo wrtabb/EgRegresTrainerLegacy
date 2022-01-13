@@ -27,10 +27,10 @@ def main():
     # Regression on saturated electrons
     if args.era=='HighEnergy':
         era_name = "HighEnergy"
-        input_ideal_ic  = "{}/DoubleElectron_FlatPt-500To3000_FlatPU0to70_120X_mcRun3_2021_realistic_v6_v1-v2_AODSIM.root".format(args.input_dir)
-        input_real_ic  = "{}/DoubleElectron_FlatPt-500To3000_FlatPU0to70_120X_mcRun3_2021_realistic_v6_v1-v2_AODSIM.root".format(args.input_dir)
-        ideal_eventnr_cut = "ele.nrSatCrys>0&&evt.eventnr%3==0"	# ~466,000 electrons
-        real_eventnr_cut = "ele.nrSatCrys>0&&evt.eventnr%3==1"	# ~466,000 electrons
+        input_ideal_ic  = "{}/DoubleElectron_FlatPt-500To5000_FlatPU0to70IDEALGT_120X_mcRun3_2021_realistic_v6_ECALIdealIC-v2_AODSIM.root".format(args.input_dir)
+        input_real_ic  = "{}/DoubleElectron_FlatPt-500To5000_FlatPU0to70_120X_mcRun3_2021_realistic_v6-v1_AODSIM.root".format(args.input_dir)
+        ideal_eventnr_cut = "evt.eventnr%3==0"
+        real_eventnr_cut = "evt.eventnr%3==1" 
 
     else:
         raise ValueError("era {} is invalid, the only available option is HighEnergy".format(era))
@@ -47,7 +47,7 @@ def main():
     regArgs.cuts_base = base_ele_cuts.format(extra_cuts = ideal_eventnr_cut)
     regArgs.cuts_name = "stdCuts"
     regArgs.cfg_dir = "configs"
-    regArgs.out_dir = "regressions/Run3Ele_Pt500to3000_Saturated" 
+    regArgs.out_dir = "regressions/Run3Ele_Pt500to5000" 
     regArgs.ntrees = 1500  
     regArgs.base_name = "regEleEcal{era_name}_IdealIC_IdealTraining".format(era_name=era_name)
     if run_step1: regArgs.run_eb_and_ee()
