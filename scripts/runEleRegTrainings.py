@@ -13,10 +13,11 @@ def main():
     parser.add_argument('--output_dir','-o',default="results",help='output dir')
     args = parser.parse_args()
 
-    #step 1, run calo only regression on the ideal IC to get the mean
-    #step 2, apply the mean to the real IC sample and save the result in a tree
-    #step 3, retrain the resolution for the real IC on the corrected energy
-    #step 4, run trk-calo regression using the real IC corrections as inputs 
+    # step 1, run calo only regression on the ideal IC to get the mean
+    # step 2, apply the mean to the real IC sample and save the result in a tree
+    # step 3, retrain the resolution for the real IC on the corrected energy
+    # step 4, step 4 is ECAL-trk combination; left off for high energy electrons 
+    # Only three steps are carried out
 
     run_step1 = True 
     run_step2 = True
