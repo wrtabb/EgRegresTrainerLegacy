@@ -11,7 +11,7 @@ void addRegCorrToTree(const std::string& treeName,const std::string& inFilename,
   TTree* corrTree = HistFuncs::makeChain(treeName,corrFilename);
   
   TFile* outFile = TFile::Open(outFilename.c_str(),"RECREATE");
-  TTree* outTree = inTree->CloneTree();
+  TTree* outTree = inTree->CloneTree(-1,"fast");
 
   float mean,sigma,invTar;
   corrTree->SetBranchAddress("mean", &mean);

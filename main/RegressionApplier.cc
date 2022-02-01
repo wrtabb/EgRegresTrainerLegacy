@@ -176,7 +176,7 @@ int main(int argc, char** argv)
     outFile = new TFile(outFilename,"UPDATE");
     outTree = static_cast<TTree*>(outFile->Get((std::string(treeName)+"Friend").c_str()));
     outTreeData.setBranchAddresses(outTree);
-    TTree* fullTree = inTree->CloneTree();
+    TTree* fullTree = inTree->CloneTree(-1,"fast");
     TBranch* fullMeanBranch=fullTree->Branch(("reg"+regOutTag+"Mean").c_str(),&outTreeData.mean);
     TBranch* fullSigmaBranch=fullTree->Branch(("reg"+regOutTag+"Sigma").c_str(),&outTreeData.sigma);
     TBranch* fullInvTarBranch=fullTree->Branch(("reg"+regOutTag+"InvTar").c_str(),&outTreeData.invTar);

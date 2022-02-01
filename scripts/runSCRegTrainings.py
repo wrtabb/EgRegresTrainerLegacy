@@ -32,8 +32,8 @@ def main():
         base_reg_name = "HLTReg2021"
         input_ideal_ic  = "{}/HLTAnalyzerTree_IDEAL.root".format(args.input_dir)
         input_real_ic = "{}/HLTAnalyzerTree_IDEAL.root".format(args.input_dir)
-        ideal_eventnr_cut = "eventnr%5==0"  #4million electrons
-        real_eventnr_cut = "eventnr%5==1" #4million electrons
+        ideal_eventnr_cut = "eventnr%5==0"  # ~700,000  electrons
+        real_eventnr_cut = "eventnr%5==1" # ~700,000 electrons
 
     else:
         raise ValueError("era {} is invalid, only option is 2021".format(era))
