@@ -23,9 +23,11 @@ enum PlotObject{
 	ELE_HIGH_ENERGY,
 	ELE_HIGH_ENERGY_SATCRYS_VS_LOW_ENERGY,
 	ELE_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
+    ELE_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
 	PHO_HIGH_ENERGY,
 	PHO_HIGH_ENERGY_SATCRYS_VS_LOW_ENERGY,
-	PHO_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY
+	PHO_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
+    PHO_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
 };
 void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj);
 
@@ -53,9 +55,11 @@ void Plotter()
 //		QCD_300ToInf,
 //		ELE_ALL_ENERGY,
 //		ELE_HIGH_ENERGY,
-//		ELE_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
 //		PHO_ALL_ENERGY
-		PHO_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY
+		ELE_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
+		PHO_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
+        ELE_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
+        PHO_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
 	};
 	int nObjects = plotObj.size();
 
@@ -216,7 +220,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	}
 	else if(plotObj == PHO_ALL_ENERGY){
 		treeName1 = "treeAllPho";
-		baseCuts += " && ele.et>0";	
+		baseCuts += " && pho.et>0";	
 		saveLoc = "/Photons_AllEnergy/Photons";
 		fitsArg = "0,2";
 	}
@@ -237,7 +241,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	else if(plotObj == PHO_HIGH_ENERGY_SATCRYS_VS_LOW_ENERGY){
 		treeName1 = "tree1000To5000Pho";
 		treeName2 = "treeSatCrysPho";
-		baseCuts += " && ele.et>0 && pho.nrSatCrys>0 && evt.eventnr%3>1";	
+		baseCuts += " && pho.et>0 && pho.nrSatCrys>0 && evt.eventnr%3>1";	
 		saveLoc = "/Photons_HighEnergy_ComparisonSatCrys/Photons_";
 		fitsArg = "2,5";
 	}
@@ -251,8 +255,22 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	else if(plotObj == PHO_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY){
 		treeName1 = "tree500To5000Pho";
 		treeName2 = "treeSatCrysPho";
-		baseCuts += " && ele.et>0 && pho.nrSatCrys>0 && evt.eventnr%3>1";	
+		baseCuts += " && pho.et>0 && pho.nrSatCrys>0 && evt.eventnr%3>1";	
 		saveLoc = "/Photons_HighEnergy_ComparisonSatCrys_VsHighEnergy/Photons_";
+		fitsArg = "4,5";
+	}
+	else if(plotObj == ELE_HIGH_ENERGY_SATCRYS_NO_H_OVER_E){
+		treeName1 = "treeSatCrysEle";
+		treeName2 = "treeSatCrysEleNoHoverE";
+		baseCuts += " && ele.et>0 && ele.nrSatCrys>0 && evt.eventnr%3>1";	
+		saveLoc = "/Electrons_HighEnergy_ComparisonSatCrys_Vs_NoHoverE/Electrons_";
+		fitsArg = "4,5";
+	}
+	else if(plotObj == PHO_HIGH_ENERGY_SATCRYS_NO_H_OVER_E){
+		treeName1 = "treeSatCrysPho";
+		treeName2 = "treeSatCrysPhoNoHoverE";
+		baseCuts += " && pho.et>0 && pho.nrSatCrys>0 && evt.eventnr%3>1";	
+		saveLoc = "/Photons_HighEnergy_ComparisonSatCrys_Vs_NoHoverE/Photons_";
 		fitsArg = "4,5";
 	}
         

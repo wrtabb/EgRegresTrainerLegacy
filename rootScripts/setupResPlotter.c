@@ -81,6 +81,20 @@
    TTree*treeSatCrysEleFriend = HistFuncs::makeChain("egRegTreeFriend",resultsSatCrysEle+outputNameSatCrysEle,1,1,1);
    treeSatCrysEle->AddFriend(treeSatCrysEleFriend);
 
+   // High Energy Electrons Trained on Saturated Crystals no H/E 
+   std::string resultsSatCrysEleNoHoverE = "/home/hep/wrtabb/Egamma/EgRegresTrainerLegacy/regressions/Run3Ele_Pt500to5000_NoHoverE_/";
+   std::string outputNameSatCrysEleNoHoverE = "regEleEcalHighEnergy_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
+   TTree*treeSatCrysEleNoHoverE = HistFuncs::makeChain("egRegTree",resultsSatCrysEleNoHoverE+outputNameSatCrysEleNoHoverE,1,1,1);
+   TTree*treeSatCrysEleNoHoverEFriend = HistFuncs::makeChain("egRegTreeFriend",resultsSatCrysEleNoHoverE+outputNameSatCrysEleNoHoverE,1,1,1);
+   treeSatCrysEleNoHoverE->AddFriend(treeSatCrysEleNoHoverEFriend);
+
+   // High Energy Phoctrons Trained on Saturated Crystals no H/E 
+   std::string resultsSatCrysPhoNoHoverE = "/home/hep/wrtabb/Egamma/EgRegresTrainerLegacy/regressions/Run3Pho_Pt500to5000_NoHoverE/";
+   std::string outputNameSatCrysPhoNoHoverE = "regPhoEcal2021Run3_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
+   TTree*treeSatCrysPhoNoHoverE = HistFuncs::makeChain("egRegTree",resultsSatCrysPhoNoHoverE+outputNameSatCrysPhoNoHoverE,1,1,1);
+   TTree*treeSatCrysPhoNoHoverEFriend = HistFuncs::makeChain("egRegTreeFriend",resultsSatCrysPhoNoHoverE+outputNameSatCrysPhoNoHoverE,1,1,1);
+   treeSatCrysPhoNoHoverE->AddFriend(treeSatCrysPhoNoHoverEFriend);
+
    /*************************************
    #now as an example do the following, 
    #note the second tree argument is for when I was comparing to a different sample, 
