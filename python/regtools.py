@@ -12,7 +12,7 @@ class RegArgs:
         self.cfg_dir = "configs"
         self.out_dir = "results" 
         self.tree_name = "egRegTree"
-        self.write_full_tree = "0"
+        self.write_full_tree = "1"
         self.reg_out_tag = ""
         self.min_events = 300
         self.shrinkage = 0.15
@@ -23,10 +23,10 @@ class RegArgs:
         self.fix_mean = False
         self.input_testing = "test.root"
         self.input_training = "train.root"
-        self.target = "mc.energy/(sc.rawEnergy)"
-        self.var_eb = "nrVert:sc.rawEnergy:sc.etaWidth:sc.phiWidth:ssFrac.e3x3/sc.rawEnergy:sc.seedClusEnergy/sc.rawEnergy:ssFrac.eMax/sc.rawEnergy:ssFrac.e2nd/sc.rawEnergy:ssFrac.eLeftRightDiffSumRatio:ssFrac.eTopBottomDiffSumRatio:ssFrac.sigmaIEtaIEta:ssFrac.sigmaIEtaIPhi:ssFrac.sigmaIPhiIPhi:sc.numberOfSubClusters:sc.clusterMaxDR:sc.clusterMaxDRDPhi:sc.clusterMaxDRDEta:sc.clusterMaxDRRawEnergy/sc.rawEnergy:clus1.clusterRawEnergy/sc.rawEnergy:clus2.clusterRawEnergy/sc.rawEnergy:clus3.clusterRawEnergy/sc.rawEnergy:clus1.clusterDPhiToSeed:clus2.clusterDPhiToSeed:clus3.clusterDPhiToSeed:clus1.clusterDEtaToSeed:clus2.clusterDEtaToSeed:clus3.clusterDEtaToSeed:sc.iEtaOrX:sc.iPhiOrY"  
-        self.var_ee = "nrVert:sc.rawEnergy:sc.etaWidth:sc.phiWidth:ssFrac.e3x3/sc.rawEnergy:sc.seedClusEnergy/sc.rawEnergy:ssFrac.eMax/sc.rawEnergy:ssFrac.e2nd/sc.rawEnergy:ssFrac.eLeftRightDiffSumRatio:ssFrac.eTopBottomDiffSumRatio:ssFrac.sigmaIEtaIEta:ssFrac.sigmaIEtaIPhi:ssFrac.sigmaIPhiIPhi:sc.numberOfSubClusters:sc.clusterMaxDR:sc.clusterMaxDRDPhi:sc.clusterMaxDRDEta:sc.clusterMaxDRRawEnergy/sc.rawEnergy:clus1.clusterRawEnergy/sc.rawEnergy:clus2.clusterRawEnergy/sc.rawEnergy:clus3.clusterRawEnergy/sc.rawEnergy:clus1.clusterDPhiToSeed:clus2.clusterDPhiToSeed:clus3.clusterDPhiToSeed:clus1.clusterDEtaToSeed:clus2.clusterDEtaToSeed:clus3.clusterDEtaToSeed:sc.iEtaOrX:sc.iPhiOrY:sc.seedEta"
-        self.cuts_base = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && evt.eventnr%2==0)"
+        self.target = "eg_gen_energy/(eg_rawEnergy)"
+        self.var_eb = "eg_rawEnergy:eg_phiWidth:eg_eta:eg_rawEnergy:eg_clusterMaxDR:eg_r9Full:eg_nrClus:nrHitsEB1GeV+nrHitsEE1GeV"
+        self.var_ee = "eg_rawEnergy:eg_phiWidth:eg_eta:eg_rawEnergy:eg_clusterMaxDR:eg_r9Full:eg_nrClus:nrHitsEB1GeV+nrHitsEE1GeV"
+        self.cuts_base = "(eg_gen_energy>0 && eg_sigmaIEtaIEta>0 && eventnr%2==0)"
         self.ntrees = 1500
         self.do_eb = True
 
@@ -47,25 +47,15 @@ class RegArgs:
     def output_name(self):
         return "{}/{}_results.root".format(self.out_dir,self.name())
 
-
     def set_sc_default(self):
-        self.target = "mc.energy/(sc.rawEnergy)"
-        self.var_eb = "nrVert:sc.rawEnergy:sc.etaWidth:sc.phiWidth:ssFrac.e3x3/sc.rawEnergy:sc.seedClusEnergy/sc.rawEnergy:ssFrac.eMax/sc.rawEnergy:ssFrac.e2nd/sc.rawEnergy:ssFrac.eLeftRightDiffSumRatio:ssFrac.eTopBottomDiffSumRatio:ssFrac.sigmaIEtaIEta:ssFrac.sigmaIEtaIPhi:ssFrac.sigmaIPhiIPhi:sc.numberOfSubClusters:sc.clusterMaxDR:sc.clusterMaxDRDPhi:sc.clusterMaxDRDEta:sc.clusterMaxDRRawEnergy/sc.rawEnergy:clus1.clusterRawEnergy/sc.rawEnergy:clus2.clusterRawEnergy/sc.rawEnergy:clus3.clusterRawEnergy/sc.rawEnergy:clus1.clusterDPhiToSeed:clus2.clusterDPhiToSeed:clus3.clusterDPhiToSeed:clus1.clusterDEtaToSeed:clus2.clusterDEtaToSeed:clus3.clusterDEtaToSeed:sc.iEtaOrX:sc.iPhiOrY"  
-        self.var_ee = "nrVert:sc.rawEnergy:sc.etaWidth:sc.phiWidth:ssFrac.e3x3/sc.rawEnergy:sc.seedClusEnergy/sc.rawEnergy:ssFrac.eMax/sc.rawEnergy:ssFrac.e2nd/sc.rawEnergy:ssFrac.eLeftRightDiffSumRatio:ssFrac.eTopBottomDiffSumRatio:ssFrac.sigmaIEtaIEta:ssFrac.sigmaIEtaIPhi:ssFrac.sigmaIPhiIPhi:sc.numberOfSubClusters:sc.clusterMaxDR:sc.clusterMaxDRDPhi:sc.clusterMaxDRDEta:sc.clusterMaxDRRawEnergy/sc.rawEnergy:clus1.clusterRawEnergy/sc.rawEnergy:clus2.clusterRawEnergy/sc.rawEnergy:clus3.clusterRawEnergy/sc.rawEnergy:clus1.clusterDPhiToSeed:clus2.clusterDPhiToSeed:clus3.clusterDPhiToSeed:clus1.clusterDEtaToSeed:clus2.clusterDEtaToSeed:clus3.clusterDEtaToSeed:sc.iEtaOrX:sc.iPhiOrY:sc.seedEta"
+        self.target = "eg_gen_energy/(eg_rawEnergy)"
+        self.var_eb = "eg_rawEnergy:eg_phiWidth:eg_eta:eg_rawEnergy:eg_clusterMaxDR:eg_r9Full:eg_nrClus:nrHitsEB1GeV+nrHitsEE1GeV"
+        self.var_ee = "eg_rawEnergy:eg_phiWidth:eg_eta:eg_rawEnergy:eg_clusterMaxDR:eg_r9Full:eg_nrClus:nrHitsEB1GeV+nrHitsEE1GeV"
     
     def set_ecal_default(self):
-        self.target = "mc.energy/(sc.rawEnergy + sc.rawESEnergy)"
-        self.var_eb = ':'.join(["sc.rawEnergy","sc.etaWidth","sc.phiWidth","sc.seedClusEnergy/sc.rawEnergy","ssFull.e5x5/sc.rawEnergy","ele.hademTow",
-                                "rho","sc.dEtaSeedSC","sc.dPhiSeedSC","ssFull.e3x3/sc.rawEnergy","ssFull.sigmaIEtaIEta","ssFull.sigmaIEtaIPhi","ssFull.sigmaIPhiIPhi",#12
-                                "ssFull.eMax/ssFull.e5x5","ssFull.e2nd/ssFull.e5x5","ssFull.eTop/ssFull.e5x5","ssFull.eBottom/ssFull.e5x5","ssFull.eLeft/ssFull.e5x5","ssFull.eRight/ssFull.e5x5",
-                                "ssFull.e2x5Max/ssFull.e5x5","ssFull.e2x5Left/ssFull.e5x5","ssFull.e2x5Right/ssFull.e5x5","ssFull.e2x5Top/ssFull.e5x5","ssFull.e2x5Bottom/ssFull.e5x5",
-                                "ele.nrSatCrys","sc.numberOfClusters","sc.iEtaOrX","sc.iPhiOrY","sc.iEtaMod5","sc.iPhiMod2","sc.iEtaMod20","sc.iPhiMod20"])
-
-        self.var_ee = ':'.join(["sc.rawEnergy","sc.etaWidth","sc.phiWidth","sc.seedClusEnergy/sc.rawEnergy","ssFull.e5x5/sc.rawEnergy","ele.hademTow", #5
-                                "rho","sc.dEtaSeedSC","sc.dPhiSeedSC","ssFull.e3x3/sc.rawEnergy","ssFull.sigmaIEtaIEta","ssFull.sigmaIEtaIPhi","ssFull.sigmaIPhiIPhi", #12
-                                "ssFull.eMax/ssFull.e5x5","ssFull.e2nd/ssFull.e5x5","ssFull.eTop/ssFull.e5x5","ssFull.eBottom/ssFull.e5x5","ssFull.eLeft/ssFull.e5x5","ssFull.eRight/ssFull.e5x5",
-                                "ssFull.e2x5Max/ssFull.e5x5","ssFull.e2x5Left/ssFull.e5x5","ssFull.e2x5Right/ssFull.e5x5","ssFull.e2x5Top/ssFull.e5x5","ssFull.e2x5Bottom/ssFull.e5x5",
-                                "ele.nrSatCrys","sc.numberOfClusters","sc.iEtaOrX","sc.iPhiOrY","sc.rawESEnergy/sc.rawEnergy"])
+        self.target = "eg_gen_energy/(eg_rawEnergy)"
+        self.var_eb = "eg_rawEnergy:eg_phiWidth:eg_eta:eg_rawEnergy:eg_clusterMaxDR:eg_r9Full:eg_nrClus:nrHitsEB1GeV+nrHitsEE1GeV"
+        self.var_ee = "eg_rawEnergy:eg_phiWidth:eg_eta:eg_rawEnergy:eg_clusterMaxDR:eg_r9Full:eg_nrClus:nrHitsEB1GeV+nrHitsEE1GeV"
 
     def set_phoecal_default(self):
         #note photon uses cone based H/E rather than tower based H/E as electrons do
@@ -105,8 +95,8 @@ Regression.1.VariablesEB: {args.var_eb}
 Regression.1.VariablesEE: {args.var_ee}
 Regression.1.Target: {args.target}
 Regression.1.CutBase: {args.cuts_base} 
-Regression.1.CutEB: sc.isEB
-Regression.1.CutEE: !sc.isEB
+Regression.1.CutEB: eg_isEB
+Regression.1.CutEE: !eg_isEB
 Regression.1.MeanMin: {args.mean_min}
 Regression.1.MeanMax: {args.mean_max}
 Regression.1.FixMean: {args.fix_mean}
