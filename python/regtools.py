@@ -12,7 +12,7 @@ class RegArgs:
         self.cfg_dir = "configs"
         self.out_dir = "results" 
         self.tree_name = "egHLTRun3Tree"
-        self.write_full_tree = "1"
+        self.write_full_tree = "0"
         self.reg_out_tag = ""
         self.min_events = 300
         self.shrinkage = 0.15
