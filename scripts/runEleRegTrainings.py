@@ -36,9 +36,6 @@ def main():
     else:
         raise ValueError("era {} is invalid, the only available option is HighEnergy".format(era))
 
-
-    
-    
     #step1 train the calo only regression using IDEAL intercalibration constants
     print "starting step1"
     regArgs = RegArgs()

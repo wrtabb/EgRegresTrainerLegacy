@@ -58,8 +58,8 @@ void Plotter()
 //		PHO_ALL_ENERGY
 		ELE_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
 		PHO_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
-        ELE_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
-        PHO_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
+//        ELE_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
+//        PHO_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
 	};
 	int nObjects = plotObj.size();
 
@@ -249,14 +249,14 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		treeName1 = "tree500To5000Ele";
 		treeName2 = "treeSatCrysEle";
 		baseCuts += " && ele.et>0 && ele.nrSatCrys>0 && evt.eventnr%3>1";	
-		saveLoc = "/Electrons_HighEnergy_ComparisonSatCrys_VsHighEnergy/Electrons_";
+		saveLoc = "/SatCrysQuickCheck/Electrons_";
 		fitsArg = "4,5";
 	}
 	else if(plotObj == PHO_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY){
 		treeName1 = "tree500To5000Pho";
 		treeName2 = "treeSatCrysPho";
 		baseCuts += " && pho.et>0 && pho.nrSatCrys>0 && evt.eventnr%3>1";	
-		saveLoc = "/Photons_HighEnergy_ComparisonSatCrys_VsHighEnergy/Photons_";
+		saveLoc = "/SatCrysQuickCheck/Photons_";
 		fitsArg = "4,5";
 	}
 	else if(plotObj == ELE_HIGH_ENERGY_SATCRYS_NO_H_OVER_E){

@@ -35,11 +35,11 @@ void ResPlotter::Config::setDefaults()
     {"(mean*invTar)","Run3 electron correction"},
     {"(mean*invTar)","Run3 photon correction"},
     {"(mean*invTar)","Run3 supercluster correction"},
-    {"(mean*invTar)","SatCrys w/ H/E"},
+    {"(mean*invTar)","high energy regression 500to5000"}
   };
 
   std::vector<std::pair<std::string,std::string> > varsTree2 = {
-    {"(mean*invTar)","SatCrys w/o H/E"}
+    {"(mean*invTar)","high energy regression w/nrSatCrys > 0"},
   };
   vars.clear();
   vars.push_back(varsTree1);
