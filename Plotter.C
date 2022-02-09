@@ -36,7 +36,7 @@ void Plotter()
 	vector<PlotObject> plotObj = {
 //		ELE,
 //		PHO,
-//		SC,
+		SC,
 //		ELE_500To1000,
 //		ELE_1000To1500,
 //		ELE_1500To3000,
@@ -45,19 +45,19 @@ void Plotter()
 //		PHO_3000To4000,
 //		QCD_30To50,
 //		QCD_300ToInf,
-		ELE_ALL_ENERGY,
+//		ELE_ALL_ENERGY,
 //		PHO_ALL_ENERGY
 	};
 	int nObjects = plotObj.size();
 
 	// list of variables to plot
 	vector<PlotVariable> plotVar = {
-//		ETA,
+		ETA,
 //		PU_EB,
 //		PU_EE,
 //		ET_EB,
 //		ET_EE,
-		ET_ETA
+//		ET_ETA
 	};
 	int nVariables = plotVar.size();
 

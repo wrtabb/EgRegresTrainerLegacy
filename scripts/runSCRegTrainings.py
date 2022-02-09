@@ -44,7 +44,7 @@ def main():
     regArgs.input_testing = str(input_ideal_ic)
     regArgs.set_sc_default()
     regArgs.cfg_dir = "configs"
-    regArgs.out_dir = "results/resultsSC" 
+    regArgs.out_dir = "regressions/Run3SC" 
     regArgs.cuts_name = cuts_name
     regArgs.base_name = "{}_IdealIC_IdealTraining".format(base_reg_name)
     regArgs.cuts_base = base_ele_cuts.format(extra_cuts = ideal_eventnr_cut)
