@@ -23,7 +23,7 @@ def main():
     run_step2 = True
     run_step3 = True 
     
-    base_ele_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && ele.et>0 && ele.nrSatCrys>0 && {extra_cuts})"
+    base_ele_cuts = "(mc.energy>0 && ele.et>0 && ele.nrSatCrys>0 && {extra_cuts})"
 
     # Regression on saturated electrons
     if args.era=='HighEnergy':
@@ -45,7 +45,7 @@ def main():
     regArgs.cuts_base = base_ele_cuts.format(extra_cuts = ideal_eventnr_cut)
     regArgs.cuts_name = "stdCuts"
     regArgs.cfg_dir = "configs"
-    regArgs.out_dir = "regressions/Run3Ele_Pt500to5000_NoHoverE" 
+    regArgs.out_dir = "regressions/Run3Ele_Pt500to5000_Saturated_v2" 
     regArgs.ntrees = 1500  
     regArgs.base_name = "regEleEcal{era_name}_IdealIC_IdealTraining".format(era_name=era_name)
     if run_step1: regArgs.run_eb_and_ee()

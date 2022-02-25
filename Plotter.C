@@ -28,6 +28,8 @@ enum PlotObject{
 	PHO_HIGH_ENERGY_SATCRYS_VS_LOW_ENERGY,
 	PHO_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
     PHO_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
+    ELE_HIGH_ENERGY_SATCRYS_NOSSCUT,
+    PHO_HIGH_ENERGY_SATCRYS_NOSSCUT,
 };
 void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj);
 
@@ -56,10 +58,12 @@ void Plotter()
 //		ELE_ALL_ENERGY,
 //		ELE_HIGH_ENERGY,
 //		PHO_ALL_ENERGY
-		ELE_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
-		PHO_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
-//        ELE_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
-//        PHO_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
+//		ELE_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
+//		PHO_HIGH_ENERGY_SATCRYS_VS_HIGH_ENERGY,
+//      ELE_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
+//      PHO_HIGH_ENERGY_SATCRYS_NO_H_OVER_E,
+        ELE_HIGH_ENERGY_SATCRYS_NOSSCUT,
+        PHO_HIGH_ENERGY_SATCRYS_NOSSCUT,
 	};
 	int nObjects = plotObj.size();
 
@@ -271,6 +275,20 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		treeName2 = "treeSatCrysPhoNoHoverE";
 		baseCuts += " && pho.et>0 && pho.nrSatCrys>0 && evt.eventnr%3>1";	
 		saveLoc = "/Photons_HighEnergy_ComparisonSatCrys_Vs_NoHoverE/Photons_";
+		fitsArg = "4,5";
+	}
+	else if(plotObj == ELE_HIGH_ENERGY_SATCRYS_NOSSCUT){
+		treeName1 = "treeSatCrysNoSSCutEle";
+		treeName2 = "treeSatCrysEle";
+		baseCuts += " && ele.et>0 && ele.nrSatCrys>0 && evt.eventnr%3>1";	
+		saveLoc = "/SatCrysNoSS/Electrons_";
+		fitsArg = "4,5";
+	}
+	else if(plotObj == PHO_HIGH_ENERGY_SATCRYS_NOSSCUT){
+		treeName1 = "treeSatCrysNoSSCutPho";
+		treeName2 = "treeSatCrysPho";
+		baseCuts += " && pho.et>0 && pho.nrSatCrys>0 && evt.eventnr%3>1";	
+		saveLoc = "/SatCrysNoSS/Photons_";
 		fitsArg = "4,5";
 	}
         

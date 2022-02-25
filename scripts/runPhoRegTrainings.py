@@ -24,11 +24,11 @@ def main():
     run_step2 = True
     run_step3 = True
     
-    base_pho_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && pho.et>0 && pho.nrSatCrys>0 && {extra_cuts})"
+    base_pho_cuts = "(mc.energy>0 && pho.et>0 && pho.nrSatCrys>0 && {extra_cuts})"
 
 
-    if args.era=='2021Run3':
-        era_name = "2021Run3"
+    if args.era=='HighEnergy':
+        era_name = "HighEnergy"
         input_ideal_ic  = "{}/DoublePhoton_FlatPt-500To5000_FlatPU0to70IDEALGT_rndm_120X_mcRun3_2021_realistic_v6_ECALIdealIC-v2_AODSIM.root".format(args.input_dir)
         input_real_ic = "{}/DoublePhoton_FlatPt-500To5000_FlatPU0to70_rndm_120X_mcRun3_2021_realistic_v6_AODSIM.root".format(args.input_dir)
         ideal_eventnr_cut = "evt.eventnr%3==0"
@@ -47,7 +47,7 @@ def main():
     regArgs.cuts_name = "stdCuts"
     regArgs.cuts_base = base_pho_cuts.format(extra_cuts = ideal_eventnr_cut)
     regArgs.cfg_dir = "configs"
-    regArgs.out_dir = "regressions/Run3Pho_Pt500to5000_NoHoverE" 
+    regArgs.out_dir = "regressions/Run3Pho_Pt500to5000_Saturated_v2" 
     regArgs.ntrees = 1500  
     regArgs.base_name = "regPhoEcal{era_name}_IdealIC_IdealTraining".format(era_name=era_name)
     if run_step1: regArgs.run_eb_and_ee()
