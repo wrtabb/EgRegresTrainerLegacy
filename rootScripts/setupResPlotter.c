@@ -5,6 +5,7 @@
    std::vector<double> etaBins2p5 = {-2.5,-2.0,-1.5666,-1.4442,-1.0,-0.5,0.0,0.5,1.0,1.4442,1.566,2.0,2.5};//,2.75,3.0}
    std::vector<double> etaBins3 = {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.4442,1.566,1.7,1.8,1.9,2.,2.25,2.5,2.75,3.0};
    std::vector<double> etaBins = {0,0.5,1.0,1.4442,1.566,2.0,2.5};
+   std::vector<double> ptOneBinVeryLow = {1,100}; 
    std::vector<double> ptOneBinLow = {1,500}; 
    std::vector<double> ptOneBinMedium = {500,1000}; 
    std::vector<double> ptOneBinHigh = {1000,1500}; 
@@ -13,6 +14,7 @@
 
    std::vector<double> etaBinsFine = {0,0.2,0.4,0.6,0.8,1.0,1.2,1.4442,1.566,1.8,2.0,2.2,2.4,2.6};
    // binning for different energy ranges
+   std::vector<double> etBinsVeryLow    = {1,10,40,60,80,100};
    std::vector<double> etBinsLow    = {1,100,200,300,400,500};
    std::vector<double> etBinsMedium = {500,600,700,800,900,1000};
    std::vector<double> etBinsHigh   = {1000,1100,1200,1300,1400,1500};

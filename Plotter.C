@@ -52,11 +52,11 @@ void Plotter()
 
 	// list of variables to plot
 	vector<PlotVariable> plotVar = {
-		ETA,
+//		ETA,
 //		PU_EB,
 //		PU_EE,
-//		ET_EB,
-//		ET_EE,
+		ET_EB,
+		ET_EE,
 //		ET_ETA
 	};
 	int nVariables = plotVar.size();
@@ -64,7 +64,7 @@ void Plotter()
 	for(int i=0;i<nObjects;i++){
 		for(int j=0;j<nVariables;j++){
 			plot(false,plotVar.at(j),plotObj.at(i));
-			plot(true,plotVar.at(j),plotObj.at(i));
+//			plot(true,plotVar.at(j),plotObj.at(i));
 		}
 	}
 }
@@ -91,10 +91,10 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	// Object settings
 	if(plotObj == ELE){
 		treeName1 = "treeEleStep4";
-		baseCuts += " && ele.et>0";	
+		baseCuts += " && evt.eventnr%5>2 && ele.et>0";	
 		etBinning = "etBinsLow";
 		oneBinRange = "ptOneBinLow";
-		saveLoc = "/Electrons/Ele";
+		saveLoc = "/Ele";
 		fitsArg = "0,1";
 		etaBinning = "etaBins";
 		puBinning = "puBins";
@@ -111,10 +111,10 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	}
 	else if(plotObj == SC){
 		treeName1 = "treeSCStep3";
-		baseCuts += " && sc.et>0";	
-		etBinning = "etBinsLow";
-		oneBinRange = "ptOneBinLow";
-		saveLoc = "/Superclusters/SC";
+		baseCuts += " && evt.eventnr%5>1 && sc.et>0";	
+		etBinning = "etBinsVeryLow";
+		oneBinRange = "ptOneBinVeryLow";
+		saveLoc = "/SC";
 		fitsArg = "0,3";
 		etaBinning = "etaBins";
 		puBinning = "puBins";
@@ -241,7 +241,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		binning1 = oneBinRange;
 		var2 	 = "mc.pt";
 		binning2 = etBinning;
-		saveTag  = "PU_EE";
+		saveTag  = "ET_EB";
 		baseCuts += " && abs(sc.seedEta)<1.442";
 	}
 	else if(plotVar==ET_EE){
@@ -249,7 +249,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		binning1 = oneBinRange;
 		var2 	 = "mc.pt";
 		binning2 = etBinning;
-		saveTag  = "PU_EE";
+		saveTag  = "ET_EE";
 		baseCuts += " && abs(sc.seedEta)>1.566";
 	}
 	else if(plotVar==ET_ETA){
@@ -264,7 +264,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		return;
 	}
 
-	TString printFits = "res.printFits({"+fitsArg+"},\"plots/Run3"+saveLoc+"_"+fitType+"_"+saveTag+"_\")";
+	TString printFits = "res.printFits({"+fitsArg+"},\"plots/Run3/BadderCompare"+saveLoc+"_"+fitType+"_"+saveTag+"_\")";
 	TString makeHists = "res.makeHists({"+treeName1+","+treeName2+"},\"\",\""+baseCuts+"\",\""+var1+"\",\""+var2+"\","+binning1+","+binning2+")";
 	gROOT->ProcessLine(makeHists);
 	gROOT->ProcessLine(printFits);
