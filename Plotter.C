@@ -1,5 +1,6 @@
 enum PlotVariable{
 	ETA,
+    ETA_EXT,
 	PU_EB,
 	PU_EE,
 	ET_EB,
@@ -7,7 +8,8 @@ enum PlotVariable{
 	ET_ETA
 };
 enum PlotObject{
-	ELE,
+	ELE_STEP3,
+    ELE_STEP4,
 	PHO,
 	SC,
 	ELE_500To1000,
@@ -34,9 +36,10 @@ void Plotter()
 
 	// list of physics objects to plot
 	vector<PlotObject> plotObj = {
-//		ELE,
+		ELE_STEP3,
+		ELE_STEP4,
 //		PHO,
-		SC,
+//		SC,
 //		ELE_500To1000,
 //		ELE_1000To1500,
 //		ELE_1500To3000,
@@ -53,6 +56,7 @@ void Plotter()
 	// list of variables to plot
 	vector<PlotVariable> plotVar = {
 		ETA,
+		ETA_EXT,
 //		PU_EB,
 //		PU_EE,
 //		ET_EB,
@@ -83,20 +87,30 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		fitType = "CRUIJF";
 	} 
 
-	TString baseCuts = "mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0";
+	TString baseCuts = "mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && evt.eventnr%5>2";
 	TString treeName1;
 	TString treeName2 = "nullptr";
 	TString puBinning,etBinning,etaBinning,oneBinRange,saveLoc,fitsArg;
 
 	// Object settings
-	if(plotObj == ELE){
+	if(plotObj == ELE_STEP3){
+		treeName1 = "treeEleStep3";
+		baseCuts += " && ele.et>0";	
+		etBinning = "etBinsLow";
+		oneBinRange = "ptOneBinLow";
+		saveLoc = "/EtaExtEle/Step3_";
+		fitsArg = "0,2";
+		etaBinning = "absEtaExt";
+		puBinning = "puBins";
+	}
+	else if(plotObj == ELE_STEP4){
 		treeName1 = "treeEleStep4";
 		baseCuts += " && ele.et>0";	
 		etBinning = "etBinsLow";
 		oneBinRange = "ptOneBinLow";
-		saveLoc = "/Electrons/Ele";
-		fitsArg = "0,1";
-		etaBinning = "etaBins";
+		saveLoc = "/EtaExtEle/Step4_";
+		fitsArg = "1,2";
+		etaBinning = "absEtaExt";
 		puBinning = "puBins";
 	}
 	else if(plotObj == PHO){
@@ -219,6 +233,13 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		var2 	 = "sc.seedEta";
 		binning2 = etaBinning;
 		saveTag  = "Eta";
+	}
+	else if(plotVar==ETA_EXT){
+		var1 	 = "mc.pt";
+		binning1 = etBinning;
+		var2 	 = "abs(sc.seedEta)";
+		binning2 = etaBinning;
+		saveTag  = "EtaExt";
 	}
 	else if(plotVar==PU_EB){
 		var1 	 = "mc.pt";
