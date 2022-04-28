@@ -1,6 +1,8 @@
 enum PlotVariable{
 	ETA,
     ETA_EXT,
+    ETA_EB,
+    ETA_EE,
 	PU_EB,
 	PU_EE,
 	ET_EB,
@@ -8,6 +10,7 @@ enum PlotVariable{
 	ET_ETA
 };
 enum PlotObject{
+    COMPARE_EXT_ETA,
 	ELE_STEP3,
     ELE_STEP4,
 	PHO,
@@ -36,8 +39,9 @@ void Plotter()
 
 	// list of physics objects to plot
 	vector<PlotObject> plotObj = {
-		ELE_STEP3,
-		ELE_STEP4,
+        COMPARE_EXT_ETA,
+//		ELE_STEP3,
+//		ELE_STEP4,
 //		PHO,
 //		SC,
 //		ELE_500To1000,
@@ -55,8 +59,10 @@ void Plotter()
 
 	// list of variables to plot
 	vector<PlotVariable> plotVar = {
-		ETA,
-		ETA_EXT,
+//		ETA,
+//		ETA_EXT,
+//      ETA_EB,
+        ETA_EE,
 //		PU_EB,
 //		PU_EE,
 //		ET_EB,
@@ -112,6 +118,15 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		fitsArg = "1,2";
 		etaBinning = "absEtaExt";
 		puBinning = "puBins";
+	}
+	else if(plotObj == COMPARE_EXT_ETA){
+		treeName1 = "treeStep4_1";
+		treeName2 = "treeStep4_2";
+		baseCuts += " && ele.et>0";	
+		etBinning = "etBinsLow";
+		oneBinRange = "ptOneBinLow";
+		saveLoc = "/EtaExtEle_EE/Step4_";
+		fitsArg = "2,5";
 	}
 	else if(plotObj == PHO){
 		treeName1 = "treePhoStep3";
@@ -230,16 +245,30 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	if(plotVar==ETA){
 		var1 	 = "mc.pt";
 		binning1 = etBinning;
-		var2 	 = "sc.seedEta";
-		binning2 = etaBinning;
+		var2 	 = "abs(sc.seedEta)";
+		binning2 = "absEtaBins";
 		saveTag  = "Eta";
 	}
 	else if(plotVar==ETA_EXT){
 		var1 	 = "mc.pt";
 		binning1 = etBinning;
 		var2 	 = "abs(sc.seedEta)";
-		binning2 = etaBinning;
+		binning2 = "absEtaExt";
 		saveTag  = "EtaExt";
+	}
+	else if(plotVar==ETA_EB){
+		var1 	 = "mc.pt";
+		binning1 = etBinning;
+		var2 	 = "abs(sc.seedEta)";
+		binning2 = "absEtaEB";
+		saveTag  = "EtaExtEB";
+	}
+	else if(plotVar==ETA_EE){
+		var1 	 = "mc.pt";
+		binning1 = etBinning;
+		var2 	 = "abs(sc.seedEta)";
+		binning2 = "absEtaEE2";
+		saveTag  = "EtaExtEE";
 	}
 	else if(plotVar==PU_EB){
 		var1 	 = "mc.pt";
