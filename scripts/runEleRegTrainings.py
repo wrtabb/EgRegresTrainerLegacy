@@ -8,7 +8,7 @@ import argparse
 
 def main():
     parser = argparse.ArgumentParser(description='runs the SC regression trainings')
-    parser.add_argument('--input_dir','-i',default='/home/hep/wrtabb/Egamma/input_trees/Run3_2021/EtaExtendedEle',help='input directory with the ntuples')
+    parser.add_argument('--input_dir','-i',default='/home/hep/wrtabb/Egamma/input_trees/Run3/2022/EtaExtendedEle',help='input directory with the ntuples')
     parser.add_argument('--output_dir','-o',default="results",help='output dir')
     args = parser.parse_args()
 
@@ -23,10 +23,10 @@ def main():
     run_step4 = True
     run_step4_extra = False
     
-    base_ele_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && ele.et>0 && {extra_cuts})"
+    base_ele_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && ele.et>0 && ele.nrSatCrys>0 && {extra_cuts})"
 
-    input_ideal_ic  = "{}/etaExtendedEle.root".format(args.input_dir)
-    input_real_ic  = "{}/etaExtendedEle.root".format(args.input_dir)
+    input_ideal_ic  = "{}/DoubleElectron_FlatPt-500To5000_13p6TeV_Run3Winter22DR-FlatPU0to70_122X_mcRun3_2021_realistic_v9-v2_AODSIM.root".format(args.input_dir)
+    input_real_ic  = "{}/DoubleElectron_FlatPt-500To5000_13p6TeV_Run3Winter22DR-FlatPU0to70_122X_mcRun3_2021_realistic_v9-v2_AODSIM.root".format(args.input_dir)
     ideal_eventnr_cut = "evt.eventnr%5==0"
     real_eventnr_cut = "evt.eventnr%5==1" 
     ep_eventnr_cut = "evt.eventnr%5==2"	 
@@ -41,7 +41,7 @@ def main():
     regArgs.cuts_base = base_ele_cuts.format(extra_cuts = ideal_eventnr_cut)
     regArgs.cuts_name = "stdCuts"
     regArgs.cfg_dir = "configs"
-    regArgs.out_dir = "regressions/Run3ExtendedEtaEle" 
+    regArgs.out_dir = "regressions/Run3ExtendedEtaEleHE" 
     regArgs.ntrees = 1500  
     regArgs.base_name = "regEleEcal{era_name}_IdealIC_IdealTraining".format(era_name=era_name)
     if run_step1: regArgs.run_eb_and_ee()
