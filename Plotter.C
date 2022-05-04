@@ -67,7 +67,7 @@ void Plotter()
 //		PU_EE,
 //		ET_EB,
 //		ET_EE,
-//		ET_ETA
+		ET_ETA,
 	};
 	int nVariables = plotVar.size();
 
@@ -96,6 +96,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	TString baseCuts = "mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && evt.eventnr%5>2";
 	TString treeName1;
 	TString treeName2 = "nullptr";
+	TString treeName3 = "nullptr";
 	TString puBinning,etBinning,etaBinning,oneBinRange,saveLoc,fitsArg;
 
 	// Object settings
@@ -120,163 +121,30 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		puBinning = "puBins";
 	}
 	else if(plotObj == COMPARE_EXT_ETA){
-		treeName1 = "treeStep4_1";
-		treeName2 = "treeStep4_2";
-		baseCuts += " && ele.et>0";	
-		etBinning = "etBinsLow";
-		oneBinRange = "ptOneBinLow";
-		saveLoc = "/EtaExtEle_EE/Step4_";
-		fitsArg = "2,5";
-	}
-	else if(plotObj == PHO){
-		treeName1 = "treePhoStep3";
-		baseCuts += " && pho.et>0";	
-		etBinning = "etBinsLow";
-		oneBinRange = "ptOneBinLow";
-		saveLoc = "/Photons/Pho";
-		fitsArg = "0,2";
-		etaBinning = "etaBins";
-		puBinning = "puBins";
-	}
-	else if(plotObj == SC){
-		treeName1 = "treeSCStep3";
-		baseCuts += " && sc.et>0";	
-		etBinning = "etBinsLow";
-		oneBinRange = "ptOneBinLow";
-		saveLoc = "/Superclusters/SC";
-		fitsArg = "0,3";
-		etaBinning = "etaBins";
-		puBinning = "puBins";
-	}
-	else if(plotObj == QCD_30To50){
-		treeName1 = "treeQCD30To50";
-		baseCuts += " && ele.et>0";	
-		etBinning = "ptOneBinQCDLow";
-		oneBinRange = "ptOneBinQCDLow";
-		saveLoc = "/QCD/QCD_30To50";
-		fitsArg = "0,1";
-		etaBinning = "etaBinsEBEE";
-		puBinning = "puBinsQCD";
-	}
-	else if(plotObj == QCD_300ToInf){
-		treeName1 = "treeQCD300ToInf";
-		baseCuts += " && ele.et>0";	
-		etBinning = "ptOneBinQCDHigh";
-		oneBinRange = "ptOneBinQCDHigh";
-		saveLoc = "/QCD/QCD_300ToInf";
-		fitsArg = "0,1";
-		etaBinning = "etaBinsEBEE";
-		puBinning = "puBinsQCD";
-	}
-	else if(plotObj == ELE_500To1000){
-		treeName1 = "tree500To1000Ele";
-		baseCuts += " && ele.et>0";	
-		etBinning = "etBinsMedium";
-		oneBinRange = "ptOneBinMedium";
-		saveLoc = "/Electrons_HighEnergy/Pt500to1000";
-		fitsArg = "0,1";
-		etaBinning = "etaBins";
-		puBinning = "puBins";
-	}
-	else if(plotObj == ELE_1000To1500){
-		treeName1 = "tree1000To1500Ele";
+		treeName1 = "treeExtEle";
+		treeName2 = "treeExtEleSatCrys";
+		treeName3 = "treeExtEleNoSatCrys";
 		baseCuts += " && ele.et>0";	
 		etBinning = "etBinsHigh";
-		oneBinRange = "ptOneBinHigh";
-		saveLoc = "/Electrons_HighEnergy/Pt1000to1500";
-		fitsArg = "0,1";
-		etaBinning = "etaBins";
-		puBinning = "puBins";
+		oneBinRange = "ptOneBinHE";
+		saveLoc = "/HE_AllCrys/";
+		fitsArg = "0,1,2";
 	}
-	else if(plotObj == ELE_1500To3000){
-		treeName1 = "tree1500To3000Ele";
-		baseCuts += " && ele.et>0";	
-		etBinning = "etBinsUltra";
-		oneBinRange = "ptOneBinUltra";
-		saveLoc = "/Electrons_HighEnergy/Pt1500to3000";
-		fitsArg = "0,1";
-		etaBinning = "etaBins";
-		puBinning = "puBins";
-	}
-	else if(plotObj == PHO_1000To1500){
-		treeName1 = "tree1000To1500Pho";
-		baseCuts += " && pho.et>0";	
-		etBinning = "etBinsHigh";
-		oneBinRange = "ptOneBinHigh";
-		saveLoc = "/Photons_HighEnergy/Pt1000to1500";
-		fitsArg = "0,2";
-		etaBinning = "etaBins";
-		puBinning = "puBins";
-	}
-	else if(plotObj == PHO_1500To3000){
-		treeName1 = "tree1500To3000Pho";
-		baseCuts += " && pho.et>0";	
-		etBinning = "etBinsUltra";
-		oneBinRange = "ptOneBinUltra";
-		saveLoc = "/Photons_HighEnergy/Pt1500to3000";
-		fitsArg = "0,2";
-		etaBinning = "etaBins";
-		puBinning = "puBins";
-	}
-	else if(plotObj == PHO_3000To4000){
-		treeName1 = "tree3000To4000Pho";
-		baseCuts += " && pho.et>0";	
-		etBinning = "etBinsSuper";
-		oneBinRange = "ptOneBinSuper";
-		saveLoc = "/Photons_HighEnergy/Pt3000to4000";
-		fitsArg = "0,2";
-		etaBinning = "etaBins";
-		puBinning = "puBins";
-	}
-	else if(plotObj == ELE_ALL_ENERGY){
-		treeName1 = "treeAllEle";
-		baseCuts += " && ele.et>0";	
-		saveLoc = "/Electrons_HighEnergy_NoECALTrk/Electrons_";
-		fitsArg = "0,1";
-	}
-	else if(plotObj == PHO_ALL_ENERGY){
-		treeName1 = "treeAllPho";
-		baseCuts += " && ele.et>0";	
-		saveLoc = "/Photons_AllEnergy/Photons";
-		fitsArg = "0,2";
-	}
-        
+
 	// Variable settings
-	if(plotVar==ETA){
-		var1 	 = "mc.pt";
-		binning1 = etBinning;
-		var2 	 = "abs(sc.seedEta)";
-		binning2 = "absEtaBins";
-		saveTag  = "Eta";
-	}
-	else if(plotVar==ETA_EXT){
+	if(plotVar==ETA_EXT){
 		var1 	 = "mc.pt";
 		binning1 = etBinning;
 		var2 	 = "abs(sc.seedEta)";
 		binning2 = "absEtaExt";
 		saveTag  = "EtaExt";
 	}
-	else if(plotVar==ETA_EB){
-		var1 	 = "mc.pt";
-		binning1 = etBinning;
-		var2 	 = "abs(sc.seedEta)";
-		binning2 = "absEtaEB";
-		saveTag  = "EtaExtEB";
-	}
 	else if(plotVar==ETA_EE){
 		var1 	 = "mc.pt";
 		binning1 = etBinning;
 		var2 	 = "abs(sc.seedEta)";
-		binning2 = "absEtaEE2";
+		binning2 = "absEtaEEdiff";
 		saveTag  = "EtaExtEE";
-	}
-	else if(plotVar==PU_EB){
-		var1 	 = "mc.pt";
-		binning1 = etBinning;
-		var2 	 = "nrVert";
-		binning2 = puBinning;
-		saveTag  = "PU_EB";
-		baseCuts += " && abs(sc.seedEta)<1.442";
 	}
 	else if(plotVar==PU_EE){
 		var1 	 = "mc.pt";
@@ -285,14 +153,6 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		binning2 = puBinning;
 		saveTag  = "PU_EE";
 		baseCuts += " && abs(sc.seedEta)>1.566";
-	}
-	else if(plotVar==ET_EB){
-		var1 	 = "mc.pt";
-		binning1 = oneBinRange;
-		var2 	 = "mc.pt";
-		binning2 = etBinning;
-		saveTag  = "PU_EE";
-		baseCuts += " && abs(sc.seedEta)<1.442";
 	}
 	else if(plotVar==ET_EE){
 		var1 	 = "mc.pt";
@@ -303,10 +163,10 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		baseCuts += " && abs(sc.seedEta)>1.566";
 	}
 	else if(plotVar==ET_ETA){
-		var1 	 = "sc.seedEta";
-		binning1 = "etaBins";
+		var1 	 = "abs(sc.seedEta)";
+		binning1 = "absEtaEEdiff";
 		var2 	 = "mc.pt";
-		binning2 = "etBinsHEEle";
+		binning2 = "etBinsHigh";
 		saveTag  = "EtEta";
 	}
 	else{
@@ -314,8 +174,8 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		return;
 	}
 
-	TString printFits = "res.printFits({"+fitsArg+"},\"plots/Run3"+saveLoc+"_"+fitType+"_"+saveTag+"_\")";
-	TString makeHists = "res.makeHists({"+treeName1+","+treeName2+"},\"\",\""+baseCuts+"\",\""+var1+"\",\""+var2+"\","+binning1+","+binning2+")";
+	TString printFits = "res.printFits({"+fitsArg+"},\"plots/Run3/ExtendedEta/diffBinning"+saveLoc+"_"+fitType+"_"+saveTag+"_\")";
+	TString makeHists = "res.makeHists({"+treeName1+","+treeName2+","+treeName3+"},\"\",\""+baseCuts+"\",\""+var1+"\",\""+var2+"\","+binning1+","+binning2+")";
 	gROOT->ProcessLine(makeHists);
 	gROOT->ProcessLine(printFits);
 

@@ -7,13 +7,16 @@
     std::vector<double> absEtaBins = {0.0,0.5,1.0,1.4442,1.566,2.0,2.5,3.0};
     std::vector<double> absEtaEB = {0.0,0.5,1.0,1.4442};
     std::vector<double> absEtaEE = {1.566,2.0,2.5,3.0};
+    std::vector<double> absEtaEEdiff = {1.566,1.75,2.0,2.4,2.65,3.0};
     std::vector<double> absEtaEE2 = {1.566,1.75,2.0,2.25,2.5,2.75,3.0};
     std::vector<double> absEtaExt = {2.5,2.6,2.7,2.8,2.9,3.0};
     std::vector<double> ptOneBin = {1,500}; 
+    std::vector<double> ptOneBinHE = {1000,5000}; 
 
     std::vector<double> etaBinsFine 
         = {0,0.2,0.4,0.6,0.8,1.0,1.2,1.4442,1.566,1.8,2.0,2.2,2.4,2.6};
     std::vector<double> etBinsLow    = {1,100,200,300,400,500};
+    std::vector<double> etBinsHigh    = {1000,3000,4000,5000};
 
     //suppressing noisy fits
     RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL); 
@@ -24,27 +27,29 @@
 
     //Directories for making trees
     std::string resultsDirectory = "/home/hep/wrtabb/Egamma/EgRegresTrainerLegacy/regressions/";
-    std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/Run3_2021/EtaExtendedEle/";
-    std::string inputName = "etaExtendedEle.root";
+    std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/Run3/2022/EtaExtendedEle/";
+    std::string inputName = "DoubleElectron_FlatPt-500To5000_13p6TeV_Run3Winter22DR-FlatPU0to70_122X_mcRun3_2021_realistic_v9-v2_AODSIM.root";
 
-    // Run3_2021 Extended Eta Electrons 
-    std::string results1 = resultsDirectory + "Run3ExtendedEtaEle/";
-    std::string step3Name  = "regEleEcalRun3_EtaExtendedElectrons_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
-    std::string step4Name  = "regEleEcalTrkRun3_EtaExtendedElectrons_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-    TTree*treeStep4_1 = HistFuncs::makeChain("egRegTree",inputDirectory+inputName,1,1,1);
-    TTree*treeStep4Friend_1 = HistFuncs::makeChain("egRegTreeFriend",results1+step4Name,1,1,1);
-    treeStep4_1->AddFriend(treeStep4Friend_1);
+    // Run3 HE Extended Eta Electrons with Run3 Applied
+    std::string results1 = resultsDirectory + "Run3Ele_AppliedTo_ExtEtaEle_HE/";
+    std::string filename1 = "run3_AppliedTo_ExtEta.root";
+    TTree*treeExtEle = HistFuncs::makeChain("egRegTree",inputDirectory+inputName,1,1,1);
+    TTree*treeExtEleFriend = HistFuncs::makeChain("egRegTreeFriend",results1+filename1,1,1,1);
+    treeExtEle->AddFriend(treeExtEleFriend);
 
-    TTree*treeStep3_1 = HistFuncs::makeChain("egRegTree",results1+step3Name,1,1,1);
-    TTree*treeStep3Friend_1 = HistFuncs::makeChain("egRegTreeFriend",results1+step3Name,1,1,1);
-    treeStep3_1->AddFriend(treeStep3Friend_1);
+    // Run3 HE Extended Eta Electrons with SatCrys
+    std::string results2 = resultsDirectory + "Run3ExtendedEtaEleHE_SatCrys_v2/";
+    std::string filename2  = "regEleEcalTrkRun3_EtaExtendedElectrons_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
+    TTree*treeExtEleSatCrys = HistFuncs::makeChain("egRegTree",inputDirectory+inputName,1,1,1);
+    TTree*treeExtEleSatCrysFriend = HistFuncs::makeChain("egRegTreeFriend",results2+filename2,1,1,1);
+    treeExtEleSatCrys->AddFriend(treeExtEleSatCrysFriend);
 
-    // Run3_2021 Extended Eta Electrons with Run3 Applied
-    std::string results2 = resultsDirectory + "Run3Ele_AppliedTo_ExtEtaEle/";
-    std::string step4Name2  = "run3_AppliedTo_ExtEta.root";
-    TTree*treeStep4_2 = HistFuncs::makeChain("egRegTree",results2+step4Name2,1,1,1);
-    TTree*treeStep4Friend_2 = HistFuncs::makeChain("egRegTreeFriend",results2+step4Name2,1,1,1);
-    treeStep4_2->AddFriend(treeStep4Friend_2);
+    // Run3 HE Extended Eta Electrons No SatCrys
+    std::string results3 = resultsDirectory + "Run3ExtendedEtaEleHE_NoSatCrys_v2/";
+    std::string filename3  = "regEleEcalTrkRun3_EtaExtendedElectrons_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
+    TTree*treeExtEleNoSatCrys = HistFuncs::makeChain("egRegTree",inputDirectory+inputName,1,1,1);
+    TTree*treeExtEleNoSatCrysFriend = HistFuncs::makeChain("egRegTreeFriend",results3+filename3,1,1,1);
+    treeExtEleNoSatCrys->AddFriend(treeExtEleNoSatCrysFriend);
 
     /*************************************
     #now as an example do the following, 
