@@ -7,7 +7,7 @@
     std::vector<double> absEtaBins = {0.0,0.5,1.0,1.4442,1.566,2.0,2.5,3.0};
     std::vector<double> absEtaEB = {0.0,0.5,1.0,1.4442};
     std::vector<double> absEtaEE = {1.566,2.0,2.5,3.0};
-    std::vector<double> absEtaEE2 = {1.566,1.75,2.0,2.25,2.5,2.75,3.0};
+    std::vector<double> absEtaEE2 = {1.566,1.75,2.0,2.4,2.65,3.0};
     std::vector<double> absEtaExt = {2.5,2.6,2.7,2.8,2.9,3.0};
     std::vector<double> ptOneBin = {1,500}; 
 
