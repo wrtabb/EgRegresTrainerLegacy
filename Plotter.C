@@ -93,7 +93,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		fitType = "CRUIJF";
 	} 
 
-	TString baseCuts = "mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && evt.eventnr%5>2";
+	TString baseCuts = "mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && evt.eventnr%5>2 && ele.nrSatCrys==0";
 	TString treeName1;
 	TString treeName2 = "nullptr";
 	TString treeName3 = "nullptr";
@@ -121,13 +121,13 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		puBinning = "puBins";
 	}
 	else if(plotObj == COMPARE_EXT_ETA){
-		treeName1 = "treeExtEle";
-		treeName2 = "treeExtEleSatCrys";
-		treeName3 = "treeExtEleNoSatCrys";
+		treeName1 = "tree1";
+		treeName2 = "tree2";
+		treeName3 = "tree3";
 		baseCuts += " && ele.et>0";	
 		etBinning = "etBinsHigh";
 		oneBinRange = "ptOneBinHE";
-		saveLoc = "/HE_AllCrys/";
+		saveLoc = "/HE_LEApplied_12_0Applied_NoCrys_v2/";
 		fitsArg = "0,1,2";
 	}
 
@@ -174,7 +174,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		return;
 	}
 
-	TString printFits = "res.printFits({"+fitsArg+"},\"plots/Run3/ExtendedEta/diffBinning"+saveLoc+"_"+fitType+"_"+saveTag+"_\")";
+	TString printFits = "res.printFits({"+fitsArg+"},\"plots/Run3/ExtendedEta"+saveLoc+"_"+fitType+"_"+saveTag+"_\")";
 	TString makeHists = "res.makeHists({"+treeName1+","+treeName2+","+treeName3+"},\"\",\""+baseCuts+"\",\""+var1+"\",\""+var2+"\","+binning1+","+binning2+")";
 	gROOT->ProcessLine(makeHists);
 	gROOT->ProcessLine(printFits);

@@ -16,7 +16,7 @@
     std::vector<double> etaBinsFine 
         = {0,0.2,0.4,0.6,0.8,1.0,1.2,1.4442,1.566,1.8,2.0,2.2,2.4,2.6};
     std::vector<double> etBinsLow    = {1,100,200,300,400,500};
-    std::vector<double> etBinsHigh    = {1000,3000,4000,5000};
+    std::vector<double> etBinsHigh    = {500,1000,3000,4000,5000};
 
     //suppressing noisy fits
     RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL); 
@@ -30,26 +30,26 @@
     std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/Run3/2022/EtaExtendedEle/";
     std::string inputName = "DoubleElectron_FlatPt-500To5000_13p6TeV_Run3Winter22DR-FlatPU0to70_122X_mcRun3_2021_realistic_v9-v2_AODSIM.root";
 
-    // Run3 HE Extended Eta Electrons with Run3 Applied
-    std::string results1 = resultsDirectory + "Run3Ele_AppliedTo_ExtEtaEle_HE/";
-    std::string filename1 = "run3_AppliedTo_ExtEta.root";
-    TTree*treeExtEle = HistFuncs::makeChain("egRegTree",inputDirectory+inputName,1,1,1);
-    TTree*treeExtEleFriend = HistFuncs::makeChain("egRegTreeFriend",results1+filename1,1,1,1);
-    treeExtEle->AddFriend(treeExtEleFriend);
-
     // Run3 HE Extended Eta Electrons with SatCrys
-    std::string results2 = resultsDirectory + "Run3ExtendedEtaEleHE_SatCrys_v2/";
-    std::string filename2  = "regEleEcalTrkRun3_EtaExtendedElectrons_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-    TTree*treeExtEleSatCrys = HistFuncs::makeChain("egRegTree",inputDirectory+inputName,1,1,1);
-    TTree*treeExtEleSatCrysFriend = HistFuncs::makeChain("egRegTreeFriend",results2+filename2,1,1,1);
-    treeExtEleSatCrys->AddFriend(treeExtEleSatCrysFriend);
+    std::string results1 = resultsDirectory + "Run3ExtendedEtaEleHE_SatCrys_v2/";
+    std::string filename1  = "regEleEcalRun3_EtaExtendedElectrons_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
+    TTree*tree1 = HistFuncs::makeChain("egRegTree",results1+filename1,1,1,1);
+    TTree*tree1Friend = HistFuncs::makeChain("egRegTreeFriend",results1+filename1,1,1,1);
+    tree1->AddFriend(tree1Friend);
 
-    // Run3 HE Extended Eta Electrons No SatCrys
-    std::string results3 = resultsDirectory + "Run3ExtendedEtaEleHE_NoSatCrys_v2/";
-    std::string filename3  = "regEleEcalTrkRun3_EtaExtendedElectrons_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-    TTree*treeExtEleNoSatCrys = HistFuncs::makeChain("egRegTree",inputDirectory+inputName,1,1,1);
-    TTree*treeExtEleNoSatCrysFriend = HistFuncs::makeChain("egRegTreeFriend",results3+filename3,1,1,1);
-    treeExtEleNoSatCrys->AddFriend(treeExtEleNoSatCrysFriend);
+    // 12_0 applied to 12_2 extended eta 
+    std::string results2 = resultsDirectory + "Run3SatCrysExtEle_12_0_AppliedTo_12_2/";
+    std::string filename2  = "12_0_AppliedTo_12_2.root";
+    TTree*tree2 = HistFuncs::makeChain("egRegTree",results2+filename2,1,1,1);
+    TTree*tree2Friend = HistFuncs::makeChain("egRegTreeFriend",results2+filename2,1,1,1);
+    tree2->AddFriend(tree2Friend);
+
+    // Low pt applied to high pt extended eta 
+    std::string results3 = resultsDirectory + "LEAppliedToHE_ExtEtaEle_v2/";
+    std::string filename3  = "LE_AppliedTo_HE.root";
+    TTree*tree3 = HistFuncs::makeChain("egRegTree",results3+filename3,1,1,1);
+    TTree*tree3Friend = HistFuncs::makeChain("egRegTreeFriend",results3+filename3,1,1,1);
+    tree3->AddFriend(tree3Friend);
 
     /*************************************
     #now as an example do the following, 
