@@ -93,42 +93,22 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		fitType = "CRUIJF";
 	} 
 
-	TString baseCuts = "mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && evt.eventnr%5>2 && ele.nrSatCrys==0";
+	TString baseCuts = "mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && evt.eventnr%5>1 && ele.nrSatCrys==0";
 	TString treeName1;
 	TString treeName2 = "nullptr";
 	TString treeName3 = "nullptr";
 	TString puBinning,etBinning,etaBinning,oneBinRange,saveLoc,fitsArg;
 
 	// Object settings
-	if(plotObj == ELE_STEP3){
-		treeName1 = "treeEleStep3";
-		baseCuts += " && ele.et>0";	
-		etBinning = "etBinsLow";
-		oneBinRange = "ptOneBinLow";
-		saveLoc = "/EtaExtEle/Step3_";
-		fitsArg = "0,2";
-		etaBinning = "absEtaExt";
-		puBinning = "puBins";
-	}
-	else if(plotObj == ELE_STEP4){
-		treeName1 = "treeEleStep4";
-		baseCuts += " && ele.et>0";	
-		etBinning = "etBinsLow";
-		oneBinRange = "ptOneBinLow";
-		saveLoc = "/EtaExtEle/Step4_";
-		fitsArg = "1,2";
-		etaBinning = "absEtaExt";
-		puBinning = "puBins";
-	}
-	else if(plotObj == COMPARE_EXT_ETA){
-		treeName1 = "tree1";
-		treeName2 = "tree2";
-		treeName3 = "tree3";
+	if(plotObj == COMPARE_EXT_ETA){
+		treeName1 = "tree2";
+		treeName2 = "tree4";
+		//treeName3 = "tree3";
 		baseCuts += " && ele.et>0";	
 		etBinning = "etBinsHigh";
 		oneBinRange = "ptOneBinHE";
-		saveLoc = "/HE_LEApplied_12_0Applied_NoCrys_v2/";
-		fitsArg = "0,1,2";
+		saveLoc = "/12_2_12_0_LE/NoSatCrys";
+		fitsArg = "0,1";
 	}
 
 	// Variable settings

@@ -26,30 +26,35 @@
     //-----trees-----//
 
     //Directories for making trees
-    std::string resultsDirectory = "/home/hep/wrtabb/Egamma/EgRegresTrainerLegacy/regressions/";
+    std::string resultsDirectory = "/home/hep/wrtabb/Egamma/EgRegresTrainerLegacy/regressions/EtaExtended/";
     std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/Run3/2022/EtaExtendedEle/";
     std::string inputName = "DoubleElectron_FlatPt-500To5000_13p6TeV_Run3Winter22DR-FlatPU0to70_122X_mcRun3_2021_realistic_v9-v2_AODSIM.root";
 
-    // Run3 HE Extended Eta Electrons with SatCrys
-    std::string results1 = resultsDirectory + "Run3ExtendedEtaEleHE_SatCrys_v2/";
-    std::string filename1  = "regEleEcalRun3_EtaExtendedElectrons_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
-    TTree*tree1 = HistFuncs::makeChain("egRegTree",results1+filename1,1,1,1);
-    TTree*tree1Friend = HistFuncs::makeChain("egRegTreeFriend",results1+filename1,1,1,1);
+    std::string filename = "input.root";
+
+    // 12_2_HE 
+    std::string results1 = resultsDirectory + "12_2_HE/";
+    TTree*tree1 = HistFuncs::makeChain("egRegTree",results1+filename,1,1,1);
+    TTree*tree1Friend = HistFuncs::makeChain("egRegTreeFriend",results1+filename,1,1,1);
     tree1->AddFriend(tree1Friend);
 
-    // 12_0 applied to 12_2 extended eta 
-    std::string results2 = resultsDirectory + "Run3SatCrysExtEle_12_0_AppliedTo_12_2/";
-    std::string filename2  = "12_0_AppliedTo_12_2.root";
-    TTree*tree2 = HistFuncs::makeChain("egRegTree",results2+filename2,1,1,1);
-    TTree*tree2Friend = HistFuncs::makeChain("egRegTreeFriend",results2+filename2,1,1,1);
+    // 12_2_LE 
+    std::string results2 = resultsDirectory + "12_2_LE/";
+    TTree*tree2 = HistFuncs::makeChain("egRegTree",results2+filename,1,1,1);
+    TTree*tree2Friend = HistFuncs::makeChain("egRegTreeFriend",results2+filename,1,1,1);
     tree2->AddFriend(tree2Friend);
 
-    // Low pt applied to high pt extended eta 
-    std::string results3 = resultsDirectory + "LEAppliedToHE_ExtEtaEle_v2/";
-    std::string filename3  = "LE_AppliedTo_HE.root";
-    TTree*tree3 = HistFuncs::makeChain("egRegTree",results3+filename3,1,1,1);
-    TTree*tree3Friend = HistFuncs::makeChain("egRegTreeFriend",results3+filename3,1,1,1);
+    // 12_0_HE 
+    std::string results3 = resultsDirectory + "12_0_HE/";
+    TTree*tree3 = HistFuncs::makeChain("egRegTree",results3+filename,1,1,1);
+    TTree*tree3Friend = HistFuncs::makeChain("egRegTreeFriend",results3+filename,1,1,1);
     tree3->AddFriend(tree3Friend);
+
+    // 12_0_LE
+    std::string results4 = resultsDirectory + "12_0_LE/";
+    TTree*tree4 = HistFuncs::makeChain("egRegTree",results4+filename,1,1,1);
+    TTree*tree4Friend = HistFuncs::makeChain("egRegTreeFriend",results4+filename,1,1,1);
+    tree4->AddFriend(tree4Friend);
 
     /*************************************
     #now as an example do the following, 

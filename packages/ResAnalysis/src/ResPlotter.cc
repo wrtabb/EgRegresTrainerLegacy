@@ -31,14 +31,14 @@ void ResPlotter::Config::setDefaults()
   divideMeanBySigma = true;
 
   std::vector<std::pair<std::string,std::string> > varsTree1 = {
-    {"(mean*invTar)","12_2 HE Correction"},
+    {"(mean*invTar)","12_2 LE Correction"},
   };
 
   std::vector<std::pair<std::string,std::string> > varsTree2 = {
-    {"(mean*invTar)","12_0 HE Correction"},
+    {"(mean*invTar)","12_0 LE Correction"},
   };
   std::vector<std::pair<std::string,std::string> > varsTree3 = {
-    {"(mean*invTar)","12_2 LE Correction"},
+    {"(mean*invTar)","12_0 HE Correction"},
   };
 
   vars.clear();
