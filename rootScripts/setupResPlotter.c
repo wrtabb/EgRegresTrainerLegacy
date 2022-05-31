@@ -16,7 +16,7 @@
     std::vector<double> etaBinsFine 
         = {0,0.2,0.4,0.6,0.8,1.0,1.2,1.4442,1.566,1.8,2.0,2.2,2.4,2.6};
     std::vector<double> etBinsLow    = {1,100,200,300,400,500};
-    std::vector<double> etBinsHigh    = {500,1000,3000,4000,5000};
+    std::vector<double> etBinsHigh    = {1000,3000,4000,5000};
 
     //suppressing noisy fits
     RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL); 
@@ -55,6 +55,12 @@
     TTree*tree4 = HistFuncs::makeChain("egRegTree",results4+filename,1,1,1);
     TTree*tree4Friend = HistFuncs::makeChain("egRegTreeFriend",results4+filename,1,1,1);
     tree4->AddFriend(tree4Friend);
+
+    // 12_2_LE ideal and real ICs
+    std::string results5 = resultsDirectory + "12_2_LE_ideal_and_real/";
+    TTree*tree5 = HistFuncs::makeChain("egRegTree",results5+filename,1,1,1);
+    TTree*tree5Friend = HistFuncs::makeChain("egRegTreeFriend",results5+filename,1,1,1);
+    tree5->AddFriend(tree5Friend);
 
     /*************************************
     #now as an example do the following, 

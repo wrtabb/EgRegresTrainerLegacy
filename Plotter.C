@@ -93,7 +93,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		fitType = "CRUIJF";
 	} 
 
-	TString baseCuts = "mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && evt.eventnr%5>1 && ele.nrSatCrys==0";
+	TString baseCuts = "mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && evt.eventnr%5>1 && ele.nrSatCrys>0";
 	TString treeName1;
 	TString treeName2 = "nullptr";
 	TString treeName3 = "nullptr";
@@ -101,13 +101,12 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 
 	// Object settings
 	if(plotObj == COMPARE_EXT_ETA){
-		treeName1 = "tree2";
-		treeName2 = "tree4";
-		//treeName3 = "tree3";
+		treeName1 = "tree1";
+		treeName2 = "tree3";
 		baseCuts += " && ele.et>0";	
 		etBinning = "etBinsHigh";
 		oneBinRange = "ptOneBinHE";
-		saveLoc = "/12_2_12_0_LE/NoSatCrys";
+		saveLoc = "/HE_Comparison/SatCrys";
 		fitsArg = "0,1";
 	}
 
