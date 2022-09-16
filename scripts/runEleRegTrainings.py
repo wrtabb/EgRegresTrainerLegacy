@@ -27,8 +27,12 @@ def main():
 
     input_ideal_ic  = "{}/DoubleElectron_FlatPt-500To5000_13p6TeV_FlatPU0to70ECALIdeal_122X_mcRun3_2021_realistic_v9_ECALIdealIC_AODSIM.root".format(args.input_dir)
     input_real_ic  = "{}/DoubleElectron_FlatPt-500To5000_13p6TeV_Run3Winter22DR-FlatPU0to70_122X_mcRun3_2021_realistic_v9-v2_AODSIM.root".format(args.input_dir)
-    ideal_eventnr_cut = "evt.eventnr%5==0"
-    real_eventnr_cut = "evt.eventnr%5==1" 
+
+    # Split ideal, real, and validation in thirds
+    ideal_eventnr_cut = "evt.eventnr%3==0"
+    real_eventnr_cut = "evt.eventnr%3==1" 
+    # no step 4
+
     ep_eventnr_cut = "evt.eventnr%5==2"	 
 
     era_name = "Run3_EtaExtendedElectrons" 

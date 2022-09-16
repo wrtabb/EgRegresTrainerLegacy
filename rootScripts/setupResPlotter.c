@@ -62,6 +62,12 @@
     TTree*tree5Friend = HistFuncs::makeChain("egRegTreeFriend",results5+filename,1,1,1);
     tree5->AddFriend(tree5Friend);
 
+    // 12_2_HE ideal and real ICs
+    std::string results6 = resultsDirectory + "12_2_HE_ideal_and_real/";
+    TTree*tree6 = HistFuncs::makeChain("egRegTree",results6+filename,1,1,1);
+    TTree*tree6Friend = HistFuncs::makeChain("egRegTreeFriend",results6+filename,1,1,1);
+    tree6->AddFriend(tree6Friend);
+
     /*************************************
     #now as an example do the following, 
     #note the second tree argument is for when I was comparing to a different sample, 

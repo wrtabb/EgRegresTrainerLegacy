@@ -102,11 +102,11 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	// Object settings
 	if(plotObj == COMPARE_EXT_ETA){
 		treeName1 = "tree1";
-		treeName2 = "tree3";
+		treeName2 = "tree6";
 		baseCuts += " && ele.et>0";	
 		etBinning = "etBinsHigh";
 		oneBinRange = "ptOneBinHE";
-		saveLoc = "/HE_Comparison/SatCrys";
+		saveLoc = "/HE_Comparison_ideal_and_real/SatCrys";
 		fitsArg = "0,1";
 	}
 
