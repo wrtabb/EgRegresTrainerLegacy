@@ -52,11 +52,11 @@ void Plotter()
 
 	// list of variables to plot
 	vector<PlotVariable> plotVar = {
-//		ETA,
+		ETA,
 //		PU_EB,
 //		PU_EE,
-		ET_EB,
-		ET_EE,
+//		ET_EB,
+//		ET_EE,
 //		ET_ETA
 	};
 	int nVariables = plotVar.size();
@@ -64,7 +64,7 @@ void Plotter()
 	for(int i=0;i<nObjects;i++){
 		for(int j=0;j<nVariables;j++){
 			plot(false,plotVar.at(j),plotObj.at(i));
-//			plot(true,plotVar.at(j),plotObj.at(i));
+			plot(true,plotVar.at(j),plotObj.at(i));
 		}
 	}
 }
@@ -88,7 +88,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	TString treeName2 = "nullptr";
 	TString puBinning,etBinning,etaBinning,oneBinRange,saveLoc,fitsArg;
 
-	// Object settings
+	//ch looks like it is up to 3.0) Object settings
 	if(plotObj == ELE){
 		treeName1 = "treeEleStep4";
 		baseCuts += " && evt.eventnr%5>2 && ele.et>0";	
@@ -112,11 +112,11 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	else if(plotObj == SC){
 		treeName1 = "treeSCStep3";
 		baseCuts += " && evt.eventnr%5>1 && sc.et>0";	
-		etBinning = "etBinsVeryLow";
-		oneBinRange = "ptOneBinVeryLow";
-		saveLoc = "/SC";
+		etBinning = "etBinsLow";
+		oneBinRange = "ptOneBinLow";
+		saveLoc = "/SC_update";
 		fitsArg = "0,3";
-		etaBinning = "etaBins";
+		etaBinning = "etaBins3";
 		puBinning = "puBins";
 	}
 	else if(plotObj == QCD_30To50){
@@ -216,7 +216,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	if(plotVar==ETA){
 		var1 	 = "mc.pt";
 		binning1 = etBinning;
-		var2 	 = "sc.seedEta";
+		var2 	 = "abs(sc.seedEta)";
 		binning2 = etaBinning;
 		saveTag  = "Eta";
 	}
@@ -254,9 +254,9 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	}
 	else if(plotVar==ET_ETA){
 		var1 	 = "sc.seedEta";
-		binning1 = "etaBins";
+		binning1 = etaBinning;
 		var2 	 = "mc.pt";
-		binning2 = "etBinsHEEle";
+		binning2 = etBinning;
 		saveTag  = "EtEta";
 	}
 	else{
@@ -264,7 +264,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		return;
 	}
 
-	TString printFits = "res.printFits({"+fitsArg+"},\"plots/Run3/BadderCompare"+saveLoc+"_"+fitType+"_"+saveTag+"_\")";
+	TString printFits = "res.printFits({"+fitsArg+"},\"plots/Run3/SC_Update/"+saveLoc+"_"+fitType+"_"+saveTag+"_\")";
 	TString makeHists = "res.makeHists({"+treeName1+","+treeName2+"},\"\",\""+baseCuts+"\",\""+var1+"\",\""+var2+"\","+binning1+","+binning2+")";
 	gROOT->ProcessLine(makeHists);
 	gROOT->ProcessLine(printFits);

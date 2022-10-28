@@ -2,9 +2,8 @@
    //binning
    std::vector<double> puBins = {0,10,20,30,40,50,60,70};
    std::vector<double> resBins = {0.005, 0.0075, 0.01, 0.0125, 0.015, 0.0175, 0.02, 0.0225, 0.025, 0.0275, 0.03, 0.0325, 0.035, 0.0375, 0.04, 0.0425, 0.045, 0.0475, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.09, 0.1,0.12,0.2,0.4,0.5};
-   std::vector<double> etaBins2p5 = {-2.5,-2.0,-1.5666,-1.4442,-1.0,-0.5,0.0,0.5,1.0,1.4442,1.566,2.0,2.5};//,2.75,3.0}
-   std::vector<double> etaBins3 = {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.4442,1.566,1.7,1.8,1.9,2.,2.25,2.5,2.75,3.0};
    std::vector<double> etaBins = {0,0.5,1.0,1.4442,1.566,2.0,2.5};
+   std::vector<double> etaBins3 = {0,0.5,1.0,1.4442,1.566,2.0,2.5,3.0};
    std::vector<double> ptOneBinVeryLow = {1,100}; 
    std::vector<double> ptOneBinLow = {1,500}; 
    std::vector<double> ptOneBinMedium = {500,1000}; 
@@ -52,7 +51,7 @@
  
    //Directories for making trees
    std::string resultsDirectory = "/home/hep/wrtabb/Egamma/EgRegresTrainerLegacy/results/";
-   std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/Run3_2021/";
+   std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/Run3/2021/";
 
    // Run3_2021 Photons
    std::string resultsPho = resultsDirectory + "resultsPho/";
@@ -65,7 +64,7 @@
    std::string resultsSC = resultsDirectory + "resultsSC/";
    std::string step3NameSC  = "2021Run3_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
    std::string step2NameSC  = "2021Run3_RealIC_IdealTraining_stdVar_stdCuts_ntrees1500_applied.root";
-   TTree*treeSCStep3 = HistFuncs::makeChain("egRegTree",resultsSC+step2NameSC,1,1,1);
+   TTree*treeSCStep3 = HistFuncs::makeChain("egRegTree",inputDirectory+"DoubleElectron_FlatPt-1To500_FlatPU0to70_120X_mcRun3_2021_realistic_v6-v1_AODSIM.root",1,1,1);
    TTree*treeSCStep3Friend = HistFuncs::makeChain("egRegTreeFriend",resultsSC+step3NameSC,1,1,1);
    treeSCStep3->AddFriend(treeSCStep3Friend);
 
