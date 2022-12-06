@@ -34,10 +34,11 @@ void ResPlotter::Config::setDefaults()
     {"(sc.rawEnergy+sc.rawESEnergy)/mc.energy","raw energy"},
     {"(mean*invTar)","Run3 electron correction"},
     {"(mean*invTar)","Run3 photon correction"},
-    {"(mean*invTar)","Run3 supercluster correction"}
+    {"(mean*invTar)","Run3 SC correction"}
   };
 
   std::vector<std::pair<std::string,std::string> > varsTree2 = {
+    {"(mean*invTar)","2018UL SC correction"},
     {"sc.rawEnergy/mc.energy","raw energy, 102X"},
     {"sc.corrEnergy/mc.energy","74X corr, 102X"},
     {"ele.ecalEnergy/mc.energy","80X ecal, 102X"}, 

@@ -35,8 +35,8 @@ void Plotter()
 	// list of physics objects to plot
 	vector<PlotObject> plotObj = {
 //		ELE,
-//		PHO,
-		SC,
+		PHO,
+//		SC,
 //		ELE_500To1000,
 //		ELE_1000To1500,
 //		ELE_1500To3000,
@@ -90,33 +90,36 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 
 	//ch looks like it is up to 3.0) Object settings
 	if(plotObj == ELE){
-		treeName1 = "treeEleStep4";
+		treeName1 = "treeEle";
+		treeName2 = "treeEle2018";
 		baseCuts += " && evt.eventnr%5>2 && ele.et>0";	
-		etBinning = "etBinsLow";
+		etBinning = "etBinsLow3";
 		oneBinRange = "ptOneBinLow";
-		saveLoc = "/Ele";
-		fitsArg = "0,1";
-		etaBinning = "etaBins";
+		saveLoc = "electrons";
+		fitsArg = "3,4";
+		etaBinning = "etaBinsFine";
 		puBinning = "puBins";
 	}
 	else if(plotObj == PHO){
-		treeName1 = "treePhoStep3";
-		baseCuts += " && pho.et>0";	
-		etBinning = "etBinsLow";
+		treeName1 = "treePho";
+		treeName2 = "treePho2018";
+		baseCuts += " && evt.eventnr%5>1 && pho.et>0";	
+		etBinning = "etBinsLow3";
 		oneBinRange = "ptOneBinLow";
-		saveLoc = "/Photons/Pho";
-		fitsArg = "0,2";
-		etaBinning = "etaBins";
+		saveLoc = "photons";
+		fitsArg = "3,4";
+		etaBinning = "etaBinsFine3";
 		puBinning = "puBins";
 	}
 	else if(plotObj == SC){
 		treeName1 = "treeSCStep3";
+		treeName2 = "treeRun2Step3";
 		baseCuts += " && evt.eventnr%5>1 && sc.et>0";	
-		etBinning = "etBinsLow";
+		etBinning = "etBinsLow3";
 		oneBinRange = "ptOneBinLow";
 		saveLoc = "/SC_update";
-		fitsArg = "0,3";
-		etaBinning = "etaBins3";
+		fitsArg = "3,4";
+		etaBinning = "etaBinsFine3";
 		puBinning = "puBins";
 	}
 	else if(plotObj == QCD_30To50){
@@ -264,7 +267,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		return;
 	}
 
-	TString printFits = "res.printFits({"+fitsArg+"},\"plots/Run3/SC_Update/"+saveLoc+"_"+fitType+"_"+saveTag+"_\")";
+	TString printFits = "res.printFits({"+fitsArg+"},\"plots/Run3Vs2018UL/"+saveLoc+"/"+fitType+"_"+saveTag+"_\")";
 	TString makeHists = "res.makeHists({"+treeName1+","+treeName2+"},\"\",\""+baseCuts+"\",\""+var1+"\",\""+var2+"\","+binning1+","+binning2+")";
 	gROOT->ProcessLine(makeHists);
 	gROOT->ProcessLine(printFits);

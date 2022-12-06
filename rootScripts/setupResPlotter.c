@@ -11,9 +11,13 @@
    std::vector<double> ptOneBinUltra = {1500,3000}; 
    std::vector<double> ptOneBinSuper = {3000,4000};
 
-   std::vector<double> etaBinsFine = {0,0.2,0.4,0.6,0.8,1.0,1.2,1.4442,1.566,1.8,2.0,2.2,2.4,2.6};
+   std::vector<double> etaBinsFine = {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,
+                                      1.3,1.4,1.4442,1.566,1.7,1.8,1.9,2.0,2.25,2.5};
+   std::vector<double> etaBinsFine3= {0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,
+                                      1.3,1.4,1.4442,1.566,1.7,1.8,1.9,2.0,2.25,2.5,2.75,3.0};
    // binning for different energy ranges
    std::vector<double> etBinsVeryLow    = {1,10,40,60,80,100};
+   std::vector<double> etBinsLow3   = {25,40,50,60};
    std::vector<double> etBinsLow    = {1,100,200,300,400,500};
    std::vector<double> etBinsMedium = {500,600,700,800,900,1000};
    std::vector<double> etBinsHigh   = {1000,1100,1200,1300,1400,1500};
@@ -51,94 +55,36 @@
  
    //Directories for making trees
    std::string resultsDirectory = "/home/hep/wrtabb/Egamma/EgRegresTrainerLegacy/results/";
-   std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/Run3/2021/";
-
-   // Run3_2021 Photons
-   std::string resultsPho = resultsDirectory + "resultsPho/";
-   std::string step3NamePho  = "regPhoEcal2021Run3_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
-   TTree*treePhoStep3 = HistFuncs::makeChain("egRegTree",resultsPho+step3NamePho,1,1,1);
-   TTree*treePhoStep3Friend = HistFuncs::makeChain("egRegTreeFriend",resultsPho+step3NamePho,1,1,1);
-   treePhoStep3->AddFriend(treePhoStep3Friend);
-
-   // Run3_2021 Mustache superclusters 
-   std::string resultsSC = resultsDirectory + "resultsSC/";
-   std::string step3NameSC  = "2021Run3_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
-   std::string step2NameSC  = "2021Run3_RealIC_IdealTraining_stdVar_stdCuts_ntrees1500_applied.root";
-   TTree*treeSCStep3 = HistFuncs::makeChain("egRegTree",inputDirectory+"DoubleElectron_FlatPt-1To500_FlatPU0to70_120X_mcRun3_2021_realistic_v6-v1_AODSIM.root",1,1,1);
-   TTree*treeSCStep3Friend = HistFuncs::makeChain("egRegTreeFriend",resultsSC+step3NameSC,1,1,1);
-   treeSCStep3->AddFriend(treeSCStep3Friend);
+   std::string inputDirectoryRun3 = "/home/hep/wrtabb/Egamma/input_trees/Run3/2021/";
+   std::string inputDirectory2018 = "/home/hep/wrtabb/Egamma/input_trees/2018UL/";
 
    // Run3_2021 Electrons 
-   std::string resultsEle = resultsDirectory + "resultsEle/";
-   std::string step3NameEle  = "regEleEcal2021Run3_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
-   std::string step4NameEle  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-   TTree*treeEleStep4 = HistFuncs::makeChain("egRegTree",resultsEle+step3NameEle,1,1,1);
-   TTree*treeEleStep4Friend = HistFuncs::makeChain("egRegTreeFriend",resultsEle+step4NameEle,1,1,1);
-   treeEleStep4->AddFriend(treeEleStep4Friend);
+   std::string resultsELE = resultsDirectory + "resultsEle/";
+   std::string nameELE  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
+   TTree*treeEle = HistFuncs::makeChain("egRegTree",inputDirectoryRun3+"DoubleElectron_FlatPt-1To500_FlatPU0to70_120X_mcRun3_2021_realistic_v6-v1_AODSIM.root",1,1,1);
+   TTree*treeEleFriend = HistFuncs::makeChain("egRegTreeFriend",resultsELE+nameELE,1,1,1);
+   treeEle->AddFriend(treeEleFriend);
 
-   // Run3_2021 High energy electrons
-   std::string results500To1000Ele = resultsDirectory + "resultsPt500To1000Ele/";
-   std::string outputName500To1000Ele  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-   TTree*tree500To1000Ele = HistFuncs::makeChain("egRegTree",results500To1000Ele+outputName500To1000Ele,1,1,1);
-   TTree*tree500To1000EleFriend = HistFuncs::makeChain("egRegTreeFriend",results500To1000Ele+outputName500To1000Ele,1,1,1);
-   tree500To1000Ele->AddFriend(tree500To1000EleFriend);
+   // Run2_2018UL Electrons 
+   std::string resultsELE2018 = resultsDirectory + "resultsEleV5/";
+   std::string nameELE2018  = "eleReg2018UL_applied.root";
+   TTree*treeEle2018 = HistFuncs::makeChain("egRegTree",inputDirectory2018+"DoubleElectron_FlatPt-1To300_2018ConditionsFlatPU0to70RAW_105X_upgrade2018_realistic_v4-v1_AODSIM_EgRegTreeV5Refined.root",1,1,1);
+   TTree*treeEle2018Friend = HistFuncs::makeChain("egRegTreeFriend",resultsELE2018+nameELE2018,1,1,1);
+   treeEle2018->AddFriend(treeEle2018Friend);
+   
+   // Run3_2021 Photons 
+   std::string resultsPHO = resultsDirectory + "resultsPho/";
+   std::string namePHO  = "regPhoEcal2021Run3_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_applied.root";
+   TTree*treePho = HistFuncs::makeChain("egRegTree",inputDirectoryRun3+"DoublePhoton_FlatPt-5To500_FlatPU0to70_120X_mcRun3_2021_realistic_v6-v1_AODSIM.root",1,1,1);
+   TTree*treePhoFriend = HistFuncs::makeChain("egRegTreeFriend",resultsPHO+namePHO,1,1,1);
+   treePho->AddFriend(treePhoFriend);
 
-   std::string results1000To1500Ele = resultsDirectory + "resultsPt1000To1500Ele/";
-   std::string outputName1000To1500Ele  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-   TTree*tree1000To1500Ele = HistFuncs::makeChain("egRegTree",results1000To1500Ele+outputName1000To1500Ele,1,1,1);
-   TTree*tree1000To1500EleFriend = HistFuncs::makeChain("egRegTreeFriend",results1000To1500Ele+outputName1000To1500Ele,1,1,1);
-   tree1000To1500Ele->AddFriend(tree1000To1500EleFriend);
-
-   std::string results1500To3000Ele = resultsDirectory + "resultsPt1500To3000Ele/";
-   std::string outputName1500To3000Ele  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-   TTree*tree1500To3000Ele = HistFuncs::makeChain("egRegTree",results1500To3000Ele+outputName1500To3000Ele,1,1,1);
-   TTree*tree1500To3000EleFriend = HistFuncs::makeChain("egRegTreeFriend",results1500To3000Ele+outputName1500To3000Ele,1,1,1);
-   tree1500To3000Ele->AddFriend(tree1500To3000EleFriend);
-
-   // Run3_2021 QCD Samples
-   std::string resultsQCD30To50 = resultsDirectory + "resultsQCD/";
-   std::string outputNameQCD30To50  = "regQCD30to50EcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-   TTree*treeQCD30To50 = HistFuncs::makeChain("egRegTree",resultsQCD30To50+outputNameQCD30To50,1,1,1);
-   TTree*treeQCD30To50Friend = HistFuncs::makeChain("egRegTreeFriend",resultsQCD30To50+outputNameQCD30To50,1,1,1);
-   treeQCD30To50->AddFriend(treeQCD30To50Friend);
-
-   std::string resultsQCD300ToInf = resultsDirectory + "resultsQCD/";
-   std::string outputNameQCD300ToInf  = "regQCD300toInfEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-   TTree*treeQCD300ToInf = HistFuncs::makeChain("egRegTree",resultsQCD300ToInf+outputNameQCD300ToInf,1,1,1);
-   TTree*treeQCD300ToInfFriend = HistFuncs::makeChain("egRegTreeFriend",resultsQCD300ToInf+outputNameQCD300ToInf,1,1,1);
-   treeQCD300ToInf->AddFriend(treeQCD300ToInfFriend);
-
-   std::string resultsAllEle = resultsDirectory + "resultsAllEnergiesEle/";
-   std::string outputNameAllEle  = "regEleEcal2021Run3_RealIC_RealTraining_stdVar_stdCuts_ntrees1500_results.root";
-   TTree*treeAllEle = HistFuncs::makeChain("egRegTree",resultsAllEle+outputNameAllEle,1,1,1);
-   TTree*treeAllEleFriend = HistFuncs::makeChain("egRegTreeFriend",resultsAllEle+outputNameAllEle,1,1,1);
-   treeAllEle->AddFriend(treeAllEleFriend);
-
-   // Run3_2021 High energy photons 
-   std::string results1000To1500Pho = resultsDirectory + "resultsPt1000To1500Pho/";
-   // root file misnamed, but leavin this for now
-   std::string outputName1000To1500Pho  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_results.root";
-   TTree*tree1000To1500Pho = HistFuncs::makeChain("egRegTree",results1000To1500Pho+outputName1000To1500Pho,1,1,1);
-   TTree*tree1000To1500PhoFriend = HistFuncs::makeChain("egRegTreeFriend",results1000To1500Pho+outputName1000To1500Pho,1,1,1);
-   tree1000To1500Pho->AddFriend(tree1000To1500PhoFriend);
-
-   std::string results1500To3000Pho = resultsDirectory + "resultsPt1500To3000Pho/";
-   std::string outputName1500To3000Pho  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_results.root";
-   TTree*tree1500To3000Pho = HistFuncs::makeChain("egRegTree",results1500To3000Pho+outputName1500To3000Pho,1,1,1);
-   TTree*tree1500To3000PhoFriend = HistFuncs::makeChain("egRegTreeFriend",results1500To3000Pho+outputName1500To3000Pho,1,1,1);
-   tree1500To3000Pho->AddFriend(tree1500To3000PhoFriend);
-
-   std::string results3000To4000Pho = resultsDirectory + "resultsPt3000To4000Pho/";
-   std::string outputName3000To4000Pho  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_results.root";
-   TTree*tree3000To4000Pho = HistFuncs::makeChain("egRegTree",results3000To4000Pho+outputName3000To4000Pho,1,1,1);
-   TTree*tree3000To4000PhoFriend = HistFuncs::makeChain("egRegTreeFriend",results3000To4000Pho+outputName3000To4000Pho,1,1,1);
-   tree3000To4000Pho->AddFriend(tree3000To4000PhoFriend);
-
-   std::string resultsAllPho = resultsDirectory + "resultsAllEnergiesPho/";
-   std::string outputNameAllPho  = "regEleEcalTrk2021Run3_RealIC_stdVar_stdCuts_ntrees1500_results.root";
-   TTree*treeAllPho = HistFuncs::makeChain("egRegTree",resultsAllPho+outputNameAllPho,1,1,1);
-   TTree*treeAllPhoFriend = HistFuncs::makeChain("egRegTreeFriend",resultsAllPho+outputNameAllPho,1,1,1);
-   treeAllPho->AddFriend(treeAllPhoFriend);
+   // Run2_2018UL Photons 
+   std::string resultsPHO2018 = resultsDirectory + "resultsPhoV5/";
+   std::string namePHO2018  = "phoReg2018UL_applied.root";
+   TTree*treePho2018 = HistFuncs::makeChain("egRegTree",inputDirectory2018+"DoublePhoton_FlatPt-5To300_2018ConditionsFlatPU0to70RAW_105X_upgrade2018_realistic_v4-v1_AODSIM_EgRegTreeV5Refined.root",1,1,1);
+   TTree*treePho2018Friend = HistFuncs::makeChain("egRegTreeFriend",resultsPHO2018+namePHO2018,1,1,1);
+   treePho2018->AddFriend(treePho2018Friend);
 
    /*************************************
    #now as an example do the following, 
