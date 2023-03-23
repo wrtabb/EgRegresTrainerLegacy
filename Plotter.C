@@ -34,8 +34,8 @@ void Plotter()
 
 	// list of physics objects to plot
 	vector<PlotObject> plotObj = {
-//		ELE,
-		PHO,
+		ELE,
+//		PHO,
 //		SC,
 //		ELE_500To1000,
 //		ELE_1000To1500,
