@@ -94,7 +94,7 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		baseCuts += " && evt.eventnr%5>2 && ele.et>0";	
 		etBinning = "etBins";
 		oneBinRange = "ptOneBin";
-		saveLoc = "electrons";
+		saveLoc = "Thesis";
 		fitsArg = "0,1";
 		etaBinning = "etaBins";
 		puBinning = "puBins";
