@@ -6,6 +6,7 @@
    std::vector<double> etaBinsPho = {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.4442,1.566,1.7,1.8,1.9,2.,2.25,2.5,2.75,3.0};
    std::vector<double> etBins = {5,15,30,50,100,150,300};
    std::vector<double> ptOneBin = {5,300};
+   std::vector<double> ptOneBinAll = {5,5000};
    std::vector<double> etBinsPho = {10,20,30,50,100,150,300};
    std::vector<double> etBinsSC = {25,40,50,60};
    
@@ -16,8 +17,11 @@
    std::vector<double> etBinsMedium = {300,400,500,600,700,800,900,1000};
    std::vector<double> etBinsEleHigh = {1000,1100,1200,1300,1400,1500};
    std::vector<double> etBinsPhoHigh = {1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000};
+   std::vector<double> etBinsAll = {5,300,500,750,1000,1250,1500,1750,2000,2250,2500,2750,3000,3250,3500,3750,4000,4250,4500,4750,5000};
    std::vector<double> etaBinsSimple = {0.,0.7,1.1,1.4442,1.566,2.,2.25,2.5};
    
+   std::vector<double> etaBinsEBEE = {0,1.4442,1.566,3.0};
+
    //suppressing noisy fits
    RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL); 
    RooMsgService::instance().setSilentMode(true);
@@ -25,13 +29,13 @@
   
    //trees
    
-    std::string resultsDirectory = "/home/hep/wrtabb/Egamma/results/2016UL/";
-    std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/2016UL/";
-    std::string input_file = "DoubleElectron_FlatPt-1To300_2016ConditionsFlatPU0to70RAW_105X_realistic_v2-v2.root";
-    std::string results_file = "regEleEcalTrk2016UL_RealIC_stdVar_stdCuts_ntrees1500_applied.root";
-    TTree*treeEle = HistFuncs::makeChain("egRegTree",inputDirectory+input_file,1,1,1);
-    TTree*treeEleFriend = HistFuncs::makeChain("egRegTreeFriend",resultsDirectory+results_file,1,1,1);
-    treeEle->AddFriend(treeEleFriend);
+    std::string resultsDirectory = "/home/hep/wrtabb/Egamma/results/2016_HE/";
+    std::string inputDirectory = "/home/hep/wrtabb/Egamma/input_trees/HighEnergyChecksV2/";
+    std::string input_file = "DoublePhoton_FlatPt-5To5000.root";
+    std::string results_file = "phoReg2016UL_LEappliedToHE.root";
+    TTree*treeSatCrys = HistFuncs::makeChain("egRegTree",inputDirectory+input_file,1,1,1);
+    TTree*treeSatCrysFriend = HistFuncs::makeChain("egRegTreeFriend",resultsDirectory+results_file,1,1,1);
+    treeSatCrys->AddFriend(treeSatCrysFriend);
 
    /*************************************
    #now as an example do the following, 

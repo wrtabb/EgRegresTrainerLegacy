@@ -34,7 +34,7 @@ void Plotter()
 
 	// list of physics objects to plot
 	vector<PlotObject> plotObj = {
-		ELE,
+//		ELE,
 //		PHO,
 //		SC,
 //		ELE_500To1000,
@@ -46,24 +46,24 @@ void Plotter()
 //		QCD_30To50,
 //		QCD_300ToInf,
 //		ELE_ALL_ENERGY,
-//		PHO_ALL_ENERGY
+		PHO_ALL_ENERGY
 	};
 	int nObjects = plotObj.size();
 
 	// list of variables to plot
 	vector<PlotVariable> plotVar = {
-		ETA,
+//		ETA,
 //		PU_EB,
 //		PU_EE,
 //		ET_EB,
 //		ET_EE,
-//		ET_ETA
+		ET_ETA
 	};
 	int nVariables = plotVar.size();
 
 	for(int i=0;i<nObjects;i++){
 		for(int j=0;j<nVariables;j++){
-			plot(false,plotVar.at(j),plotObj.at(i));
+			//plot(false,plotVar.at(j),plotObj.at(i));
 			plot(true,plotVar.at(j),plotObj.at(i));
 		}
 	}
@@ -119,6 +119,16 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 		saveLoc = "/SC_update";
 		fitsArg = "3,4";
 		etaBinning = "etaBinsFine3";
+		puBinning = "puBins";
+	}
+	else if(plotObj == PHO_ALL_ENERGY){
+		treeName1 = "treeSatCrys";
+		baseCuts += " && evt.eventnr%5>1 && pho.et>0";	
+		etBinning = "etBinsAll";
+		oneBinRange = "ptOneBinAll";
+		saveLoc = "Thesis";
+		fitsArg = "0,1";
+		etaBinning = "etaBinsEBEE";
 		puBinning = "puBins";
 	}
 	// Variable settings
