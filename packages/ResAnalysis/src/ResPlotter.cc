@@ -36,7 +36,7 @@ void ResPlotter::Config::setDefaults()
   };
 
   std::vector<std::pair<std::string,std::string> > varsTree2 = {
-    {"sc.rawEnergy/mc.energy","raw energy, 102X"},
+    {"mean*invTar","trained on saturated crystals"},
   };
   vars.clear();
   vars.push_back(varsTree1);

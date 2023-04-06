@@ -63,7 +63,7 @@ void Plotter()
 
 	for(int i=0;i<nObjects;i++){
 		for(int j=0;j<nVariables;j++){
-			//plot(false,plotVar.at(j),plotObj.at(i));
+			plot(false,plotVar.at(j),plotObj.at(i));
 			plot(true,plotVar.at(j),plotObj.at(i));
 		}
 	}
@@ -123,11 +123,12 @@ void plot(bool dcbFit,PlotVariable plotVar,PlotObject plotObj)
 	}
 	else if(plotObj == PHO_ALL_ENERGY){
 		treeName1 = "treeSatCrys";
-		baseCuts += " && evt.eventnr%5>1 && pho.et>0";	
-		etBinning = "etBinsAll";
+		treeName2 = "treeSatCrys2";
+		baseCuts += " && evt.eventnr%5>1 && pho.et>0 && pho.nrSatCrys>1";	
+		etBinning = "etBinsHigh";
 		oneBinRange = "ptOneBinAll";
 		saveLoc = "Thesis";
-		fitsArg = "0,1";
+		fitsArg = "1,2";
 		etaBinning = "etaBinsEBEE";
 		puBinning = "puBins";
 	}

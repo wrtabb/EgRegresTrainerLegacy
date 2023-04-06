@@ -9,9 +9,8 @@ import argparse
 def main():
     
     parser = argparse.ArgumentParser(description='runs the SC regression trainings')
-    parser.add_argument('--era',required=True,help='year to produce for, 2016, 2017, 2018 are the options')
-    parser.add_argument('--input_dir','-i',default='/mercury/data1/harper/EgRegsNtups',help='input directory with the ntuples')
-    parser.add_argument('--output_dir','-o',default="results",help='output dir')
+    parser.add_argument('--input_dir','-i',default='/home/hep/wrtabb/Egamma/input_trees/2016UL',help='input directory with the ntuples')
+    parser.add_argument('--output_dir','-o',default="results/2016UL_HE",help='output dir')
     args = parser.parse_args()
 
     #step 1, run calo only regression on the ideal IC to get the mean
@@ -24,30 +23,14 @@ def main():
     run_step2 = True
     run_step3 = True
     
-    base_pho_cuts = "(mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && pho.et>0 && {extra_cuts})"
+    base_pho_cuts = "(pho.nrSatCrys>0 && mc.energy>0 && ssFrac.sigmaIEtaIEta>0 && ssFrac.sigmaIPhiIPhi>0 && pho.et>0 && {extra_cuts})"
 
-    if args.era=='2016':
-        era_name = "2016UL"
-        input_ideal_ic  = "{}/DoublePhoton_FlatPt-5To300_2016ConditionsFlatPU0to70ECALGT_105X_realistic_IdealEcalIC_v2-v2_AODSIM_EgRegTreeV5Refined.root".format(args.input_dir)
-        input_real_ic = "{}/DoublePhoton_FlatPt-5To300_2016ConditionsFlatPU0to70RAW_105X_realistic_v2-v2_AODSIM_EgRegTreeV5Refined.root".format(args.input_dir)
-        ideal_eventnr_cut = "evt.eventnr%5==0"
-        real_eventnr_cut = "evt.eventnr%5==1"
+    era_name = "2016UL"
+    input_ideal_ic  = "{}/DoublePhoton_FlatPt-5To5000.root".format(args.input_dir)
+    input_real_ic = "{}/DoublePhoton_FlatPt-5To5000.root".format(args.input_dir)
+    ideal_eventnr_cut = "evt.eventnr%3==0"
+    real_eventnr_cut = "evt.eventnr%3==1"
 
-    elif args.era=='2017':
-        era_name = "2017UL"
-        input_ideal_ic  = "{}/DoublePhoton_FlatPt-5To300_2017ConditionsFlatPU0to70ECALGT_105X_mc2017_realistic_IdealEcalIC_v5-v2_AODSIM_EgRegTreeV5Refined.root".format(args.input_dir)
-        input_real_ic = "{}/DoublePhoton_FlatPt-5To300_2017ConditionsFlatPU0to70_105X_mc2017_realistic_v5-v2_AODSIM_EgRegTreeV5Refined.root".format(args.input_dir)
-        ideal_eventnr_cut = "evt.eventnr%10==0"  #2million photons
-        real_eventnr_cut = "evt.eventnr%10==1" #2million photons    
-
-    elif args.era=='2018':
-        era_name = "2018UL"
-        input_ideal_ic  = "{}/DoublePhoton_FlatPt-5To300_2018ConditionsFlatPU0to70ECALGT_105X_upgrade2018_realistic_IdealEcalIC_v4-v1_AODSIM_EgRegTreeV5Refined.root".format(args.input_dir)
-        input_real_ic = "{}/DoublePhoton_FlatPt-5To300_2018ConditionsFlatPU0to70RAW_105X_upgrade2018_realistic_v4-v1_AODSIM_EgRegTreeV5Refined.root".format(args.input_dir)    
-        ideal_eventnr_cut = "evt.eventnr%5==0"  #4million photons (we determined 4 million was optimal but after the 2017 was done)
-        real_eventnr_cut = "evt.eventnr%5==1" #4million photons (we determined 4 million was optimal but after the 2017 was done)
-    else:
-        raise ValueError("era {} is invalid, options are 2016/2017/2018".format(era))
 
 
     #step1 train the calo only regression using IDEAL intercalibration constants
